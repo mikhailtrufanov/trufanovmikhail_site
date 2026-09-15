@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Кейс — Михаил Труфанов (макет)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f1113; --panel:#1d2126; --panel-2:#15181c; --grey:#303740;
+  --fg:#f2f2f2; --card-text:#e6e6e6; --muted:#8b8f95;
+  --amber:#e6a23c; --amber-deep:#c8842a;
+  --line:rgba(243,240,233,.12);
+  --font-display:"Oswald",-apple-system,Segoe UI,Roboto,sans-serif;
+  --font:"Montserrat",-apple-system,Segoe UI,Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+  --max:1240px; --pad:20px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--font);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+h1,h2,h3,h4{margin:0;font-weight:600;line-height:1.12}
+p{margin:0}
+.amber{color:var(--amber)}
+.mono{font-family:var(--mono)}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber)}
+
+/* ---------- placeholder markers (макет) ---------- */
+.ph{color:var(--muted);font-style:normal}
+.media-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  border:1.5px dashed rgba(230,162,60,.4);border-radius:12px;background:
+  repeating-linear-gradient(45deg,rgba(255,255,255,.015) 0 12px,transparent 12px 24px), var(--panel-2);
+  color:var(--muted);text-align:center;padding:24px;min-height:180px}
+.media-ph svg{width:34px;height:34px;stroke:var(--amber);opacity:.8}
+.media-ph .cap{font-size:13px;font-family:var(--mono);letter-spacing:.04em}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 26px;border-radius:12px;
+  font-family:var(--font);font-weight:600;font-size:15px;cursor:pointer;border:1px solid transparent;transition:.18s;white-space:nowrap}
+.btn-fill{background:var(--amber);color:#1a1206}
+.btn-fill:hover{background:var(--amber-deep)}
+.btn-grey{background:var(--grey);color:var(--fg);border-color:var(--line)}
+.btn-grey:hover{background:#3a424d}
+.btn-ghost{background:transparent;color:var(--fg);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--amber);color:var(--amber)}
+
+/* ---------- header ---------- */
+.header{position:sticky;top:0;z-index:50;background:rgba(15,17,19,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.header .wrap{display:flex;align-items:center;gap:28px;height:80px}
+.logo{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-weight:600;letter-spacing:.06em;font-size:19px}
+.logo .mark{width:30px;height:34px;flex:0 0 auto}
+.menu{display:flex;gap:26px;margin-left:14px;font-size:15px;color:#cfd3d8}
+.menu a:hover{color:var(--amber)}
+.header .right{margin-left:auto;display:flex;align-items:center;gap:16px}
+.lang{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.lang b{color:var(--fg)}
+
+/* ---------- breadcrumbs ---------- */
+.crumbs{padding:18px 0 0}
+.crumbs .wrap{font-size:13px;color:var(--muted);font-family:var(--mono);letter-spacing:.03em}
+.crumbs a:hover{color:var(--amber)}
+.crumbs .sep{margin:0 8px;opacity:.5}
+
+/* ---------- hero ---------- */
+.hero{padding:34px 0 10px}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+.tag{display:inline-block;background:rgba(230,162,60,.12);border:1px solid rgba(230,162,60,.35);color:var(--amber);
+  font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:6px 12px;border-radius:999px}
+.hero h1{font-family:var(--font-display);font-size:clamp(30px,4.4vw,52px);letter-spacing:.01em;margin:18px 0 14px;text-transform:uppercase}
+.hero .lead{font-size:clamp(16px,1.6vw,19px);color:var(--card-text);max-width:560px}
+.meta{display:flex;flex-wrap:wrap;gap:10px 26px;margin:22px 0 26px;font-size:14px;color:var(--muted)}
+.meta b{display:block;color:var(--fg);font-weight:600;font-size:15px;margin-top:2px}
+.meta .mono{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber)}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.hero-cover{min-height:340px}
+
+/* ---------- metrics plate ---------- */
+.metrics{margin:26px 0 6px}
+.metrics-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.metric{background:var(--panel);border:1px solid var(--line);border-top:2px solid var(--amber);border-radius:12px;padding:22px 24px}
+.metric .num{font-family:var(--font-display);font-size:clamp(30px,3.4vw,42px);color:var(--amber);line-height:1}
+.metric .lbl{margin-top:8px;color:var(--card-text);font-size:14px}
+.metric .lbl .ph{color:var(--muted)}
+
+/* ---------- section base ---------- */
+section.block{padding:46px 0}
+.block > .wrap > .eyebrow{display:block;margin-bottom:10px}
+.h2{font-family:var(--font-display);font-size:clamp(24px,3vw,36px);text-transform:uppercase;letter-spacing:.01em;margin-bottom:18px}
+.rich{color:var(--card-text);max-width:760px}
+.rich p+p{margin-top:14px}
+.divider{height:1px;background:var(--line);border:0;margin:0}
+
+/* anchor nav */
+.anchornav{position:sticky;top:80px;z-index:40;background:rgba(21,24,28,.92);backdrop-filter:blur(8px);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.anchornav .wrap{display:flex;gap:8px;overflow-x:auto;height:52px;align-items:center}
+.anchornav a{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);
+  padding:8px 14px;border-radius:8px;white-space:nowrap}
+.anchornav a:hover{color:var(--fg);background:rgba(255,255,255,.04)}
+
+/* checklist */
+.ul{list-style:none;padding:0;margin:16px 0 0;max-width:760px}
+.ul li{position:relative;padding:10px 0 10px 30px;border-bottom:1px solid var(--line);color:var(--card-text)}
+.ul li::before{content:"";position:absolute;left:0;top:17px;width:10px;height:10px;border-radius:3px;background:var(--amber)}
+.ul.warn li::before{background:transparent;border:2px solid var(--muted);border-radius:50%;top:15px;width:8px;height:8px}
+
+/* solution cards */
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px}
+.card h4{font-size:17px;margin-bottom:8px}
+.card p{color:var(--muted);font-size:14px}
+.card .n{font-family:var(--mono);color:var(--amber);font-size:12px;letter-spacing:.1em;margin-bottom:12px;display:block}
+
+/* tools grid */
+.tools{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.tool{display:inline-flex;align-items:center;gap:9px;background:var(--panel-2);border:1px solid var(--line);
+  border-radius:10px;padding:11px 15px;font-size:14px;color:var(--card-text)}
+.tool .dot{width:9px;height:9px;border-radius:50%;background:var(--amber);flex:0 0 auto}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+.step{position:relative;background:var(--panel-2);border:1px solid var(--line);border-radius:12px;padding:24px 22px}
+.step .idx{font-family:var(--font-display);font-size:40px;color:var(--grey);line-height:1;margin-bottom:8px}
+.step h4{font-size:16px;margin-bottom:6px}
+.step p{color:var(--muted);font-size:14px}
+
+/* cta banner */
+.ctabanner{background:linear-gradient(100deg,var(--panel) 0%,#20262d 100%);border:1px solid var(--line);border-radius:16px;
+  padding:34px 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.ctabanner h3{font-family:var(--font-display);font-size:clamp(22px,2.6vw,30px);text-transform:uppercase}
+.ctabanner p{color:var(--muted);margin-top:6px;font-size:15px}
+
+/* result recap */
+.result{background:var(--panel-2)}
+.result-lead{font-size:clamp(17px,1.9vw,21px);color:var(--fg);max-width:820px;margin-bottom:26px}
+
+/* gallery */
+.gallery{display:grid;grid-template-columns:2fr 1fr 1fr;grid-auto-rows:190px;gap:16px}
+.gallery .g1{grid-row:span 2}
+@media(max-width:760px){.gallery{grid-template-columns:1fr 1fr;grid-auto-rows:150px}.gallery .g1{grid-column:span 2;grid-row:span 1}}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px}
+.fact{border-top:2px solid var(--amber);background:var(--panel);border-radius:0 0 12px 12px;padding:20px}
+.fact h4{font-size:16px;margin-bottom:8px}
+.fact p{color:var(--muted);font-size:14px}
+
+/* author */
+.author{display:flex;gap:26px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 30px;flex-wrap:wrap}
+.author .ava{width:104px;height:104px;border-radius:14px;flex:0 0 auto;background:var(--panel-2);border:1.5px dashed rgba(230,162,60,.4);
+  display:flex;align-items:center;justify-content:center;color:var(--muted);font-family:var(--mono);font-size:11px;text-align:center}
+.author .who b{font-size:18px}
+.author .who .role{color:var(--amber);font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;margin:4px 0 10px}
+.author .who p{color:var(--card-text);font-size:15px;max-width:640px}
+
+/* form */
+.formsec{background:var(--panel-2)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px;max-width:820px}
+.field{display:flex;flex-direction:column;gap:7px}
+.field.full{grid-column:1 / -1}
+.fl{font-size:13px;color:var(--muted)}
+.field input,.field textarea{background:var(--panel);border:1px solid var(--line);border-radius:10px;color:var(--fg);
+  font-family:var(--font);font-size:15px;padding:13px 15px;outline:none;transition:.15s}
+.field input:focus,.field textarea:focus{border-color:var(--amber)}
+.field textarea{min-height:110px;resize:vertical}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted);margin:16px 0 18px;max-width:820px}
+.consent input{margin-top:3px;accent-color:var(--amber)}
+.consent a{color:var(--amber);text-decoration:underline}
+
+/* case navigation */
+.casenav{border-top:1px solid var(--line)}
+.casenav .row{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;flex-wrap:wrap}
+.casenav .row a{font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--muted)}
+.casenav .row a:hover{color:var(--amber)}
+.casenav .row .all{color:var(--fg)}
+.others{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:6px}
+.ocard{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.16s}
+.ocard:hover{border-color:rgba(230,162,60,.5);transform:translateY(-2px)}
+.ocard .oimg{height:140px}
+.ocard .obody{padding:16px 18px}
+.ocard .otag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--amber)}
+.ocard h4{font-size:16px;margin:8px 0 6px}
+.ocard p{color:var(--muted);font-size:13px}
+
+/* footer */
+.footer{background:#0b0d0e;border-top:1px solid var(--line);padding:40px 0 30px;margin-top:10px}
+.footer .top{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.footer .fmenu{display:flex;gap:22px;flex-wrap:wrap;color:#cfd3d8;font-size:14px}
+.footer .fmenu a:hover{color:var(--amber)}
+.footer .socs{display:flex;gap:10px}
+.footer .soc{width:38px;height:38px;border-radius:50%;background:var(--amber);display:flex;align-items:center;justify-content:center}
+.footer .soc svg{width:18px;height:18px;fill:#1a1206}
+.footer .copy{margin-top:26px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* sticky CTA */
+.stickycta{position:fixed;right:24px;bottom:24px;z-index:60;opacity:0;transform:translateY(14px);pointer-events:none;transition:.28s}
+.stickycta.show{opacity:1;transform:none;pointer-events:auto}
+.stickycta .btn{height:56px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.mobicta{display:none}
+
+/* responsive */
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:24px}
+  .hero-cover{min-height:230px;order:-1}
+  .cards3,.steps,.facts,.others{grid-template-columns:1fr 1fr}
+  .menu{display:none}
+}
+@media(max-width:640px){
+  .metrics-grid{grid-template-columns:1fr}
+  .cards3,.steps,.facts,.others,.form-grid{grid-template-columns:1fr}
+  .header .wrap{height:66px;gap:14px}
+  .header .right .btn{display:none}
+  .stickycta{display:none}
+  .mobicta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(15,17,19,.96);
+    border-top:1px solid var(--line);padding:10px 16px;backdrop-filter:blur(8px)}
+  .mobicta .btn{width:100%}
+  body{padding-bottom:74px}
+}
+</style>
+</head>
+<body>
+
+<!-- 1. HEADER -->
+<header class="header">
+  <div class="wrap">
+    <a class="logo" href="#">
+      <svg class="mark" viewBox="0 0 30 34" fill="none" aria-hidden="true">
+        <path d="M15 1 L28 7 V19 C28 26 22 31 15 33 C8 31 2 26 2 19 V7 Z" fill="#e6a23c"/>
+        <path d="M9 12 H21 M15 12 V24" stroke="#1a1206" stroke-width="2.6" stroke-linecap="round"/>
+      </svg>
+      МИХАИЛ ТРУФАНОВ
+    </a>
+    <nav class="menu">
+      <a href="#">Услуги</a>
+      <a href="#">Маркетинг с ИИ</a>
+      <a href="#">Кейсы</a>
+      <a href="#">FAQ</a>
+      <a href="#">Контакты</a>
+    </nav>
+    <div class="right">
+      <span class="lang"><b>RU</b></span>
+      <a class="btn btn-fill" href="#form">Обсудить проект</a>
+    </div>
+  </div>
+</header>
+
+<!-- 2. BREADCRUMBS -->
+<div class="crumbs">
+  <div class="wrap">
+    <a href="#">Главная</a><span class="sep">→</span><a href="#">Кейсы</a><span class="sep">→</span><span class="ph">[Название кейса]</span>
+  </div>
+</div>
+
+<!-- 3. HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="tag ph">[Категория кейса]</span>
+        <h1><span class="ph">[Название кейса — крупный заголовок в 1–2 строки]</span></h1>
+        <p class="lead ph">[Одна строка сути: что за проект и какой результат достигнут.]</p>
+        <div class="meta">
+          <div><span class="mono">Клиент / сфера</span><b class="ph">[Отрасль]</b></div>
+          <div><span class="mono">Период</span><b class="ph">[2021]</b></div>
+          <div><span class="mono">Роль</span><b class="ph">[Стратегия и реализация]</b></div>
+        </div>
+        <div class="hero-cta">
+          <a class="btn btn-fill" href="#form">Обсудить проект</a>
+          <a class="btn btn-ghost" href="#result">Сразу к результату ↓</a>
+        </div>
+      </div>
+      <div class="hero-cover media-ph">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="9" r="1.8"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span class="cap">Здесь обложка кейса<br>фото / коллаж / кадр</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. METRICS PLATE -->
+<section class="metrics">
+  <div class="wrap">
+    <div class="metrics-grid">
+      <div class="metric"><div class="num ph">[3000]</div><div class="lbl"><span class="ph">[метрика — напр. голосов получено]</span></div></div>
+      <div class="metric"><div class="num ph">[×2]</div><div class="lbl"><span class="ph">[метрика — напр. перевес над конкурентом]</span></div></div>
+      <div class="metric"><div class="num ph">[N]</div><div class="lbl"><span class="ph">[метрика — напр. срок / охват / CPL]</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. ANCHOR NAV -->
+<nav class="anchornav">
+  <div class="wrap">
+    <a href="#task">Задача</a>
+    <a href="#solution">Решение</a>
+    <a href="#tools">Инструменты</a>
+    <a href="#steps">Как работали</a>
+    <a href="#result">Результат</a>
+    <a href="#form">Обсудить</a>
+  </div>
+</nav>
+
+<!-- 6. TASK -->
+<section class="block" id="task">
+  <div class="wrap">
+    <span class="eyebrow">01 — Задача</span>
+    <h2 class="h2">Что нужно было сделать</h2>
+    <div class="rich">
+      <p class="ph">[Абзац контекста: с чем пришёл клиент, в какой ситуации был бизнес/проект, какая стояла бизнес-цель. 2–4 предложения.]</p>
+    </div>
+    <ul class="ul">
+      <li class="ph">[Цель 1 — конкретная и измеримая]</li>
+      <li class="ph">[Цель 2]</li>
+      <li class="ph">[Цель 3]</li>
+    </ul>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 7. PROBLEM -->
+<section class="block" id="problem">
+  <div class="wrap">
+    <span class="eyebrow">02 — Вводные и ограничения</span>
+    <h2 class="h2">Что мешало</h2>
+    <div class="rich"><p class="ph">[Короткое вступление: почему задача была нетривиальной.]</p></div>
+    <ul class="ul warn">
+      <li class="ph">[Ограничение / препятствие 1]</li>
+      <li class="ph">[Ограничение / препятствие 2]</li>
+      <li class="ph">[Ограничение / препятствие 3]</li>
+    </ul>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 8. SOLUTION -->
+<section class="block" id="solution">
+  <div class="wrap">
+    <span class="eyebrow">03 — Решение</span>
+    <h2 class="h2">Стратегия и подход</h2>
+    <div class="rich"><p class="ph">[Абзац: ключевая идея решения — за счёт чего добились результата, чем подход отличался от стандартного.]</p></div>
+    <div class="cards3">
+      <div class="card"><span class="n">Направление 1</span><h4 class="ph">[Заголовок направления]</h4><p class="ph">[Что делали в этом направлении и зачем.]</p></div>
+      <div class="card"><span class="n">Направление 2</span><h4 class="ph">[Заголовок направления]</h4><p class="ph">[Что делали в этом направлении и зачем.]</p></div>
+      <div class="card"><span class="n">Направление 3</span><h4 class="ph">[Заголовок направления]</h4><p class="ph">[Что делали в этом направлении и зачем.]</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 9. TOOLS -->
+<section class="block" id="tools">
+  <div class="wrap">
+    <span class="eyebrow">04 — Инструменты и каналы</span>
+    <h2 class="h2">Чем работали</h2>
+    <div class="tools">
+      <span class="tool"><span class="dot"></span><span class="ph">[Канал / инструмент]</span></span>
+      <span class="tool"><span class="dot"></span><span class="ph">[Яндекс Директ]</span></span>
+      <span class="tool"><span class="dot"></span><span class="ph">[Соцсети]</span></span>
+      <span class="tool"><span class="dot"></span><span class="ph">[YouTube]</span></span>
+      <span class="tool"><span class="dot"></span><span class="ph">[СМИ]</span></span>
+      <span class="tool"><span class="dot"></span><span class="ph">[Таргет]</span></span>
+      <span class="tool"><span class="dot"></span><span class="ph">[Контекст]</span></span>
+      <span class="tool"><span class="dot"></span><span class="ph">[Аналитика]</span></span>
+    </div>
+    <div style="margin-top:20px" class="media-ph">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+      <span class="cap">Здесь схема / диаграмма<br>распределения каналов или воронки</span>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 10. STEPS -->
+<section class="block" id="steps">
+  <div class="wrap">
+    <span class="eyebrow">05 — Как работали</span>
+    <h2 class="h2">Этапы</h2>
+    <div class="steps">
+      <div class="step"><div class="idx">01</div><h4 class="ph">[Этап 1]</h4><p class="ph">[Что делали на этом этапе и какой промежуточный результат.]</p></div>
+      <div class="step"><div class="idx">02</div><h4 class="ph">[Этап 2]</h4><p class="ph">[Что делали на этом этапе и какой промежуточный результат.]</p></div>
+      <div class="step"><div class="idx">03</div><h4 class="ph">[Этап 3]</h4><p class="ph">[Что делали на этом этапе и какой промежуточный результат.]</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 11. CTA BANNER -->
+<section class="block">
+  <div class="wrap">
+    <div class="ctabanner">
+      <div>
+        <h3>Хотите так же?</h3>
+        <p>Разберу вашу задачу и скажу честно, где точки роста.</p>
+      </div>
+      <a class="btn btn-fill" href="#form">Обсудить проект</a>
+    </div>
+  </div>
+</section>
+
+<!-- 12. RESULT -->
+<section class="block result" id="result">
+  <div class="wrap">
+    <span class="eyebrow">06 — Результат</span>
+    <h2 class="h2">Что получилось</h2>
+    <p class="result-lead ph">[Развёрнутый итог: главный результат в бизнес-терминах — чего достигли и что это дало клиенту.]</p>
+    <div class="metrics-grid">
+      <div class="metric"><div class="num ph">[3000]</div><div class="lbl"><span class="ph">[метрика]</span></div></div>
+      <div class="metric"><div class="num ph">[×2]</div><div class="lbl"><span class="ph">[метрика]</span></div></div>
+      <div class="metric"><div class="num ph">[N]</div><div class="lbl"><span class="ph">[метрика]</span></div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 13. GALLERY -->
+<section class="block" id="gallery">
+  <div class="wrap">
+    <span class="eyebrow">07 — Материалы</span>
+    <h2 class="h2">Как это выглядело</h2>
+    <div class="gallery">
+      <div class="media-ph g1"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="9" r="1.8"/><path d="M21 15l-5-5L5 21"/></svg><span class="cap">Крупный визуал<br>фото / кадр</span></div>
+      <div class="media-ph"><span class="cap">Скрин</span></div>
+      <div class="media-ph"><span class="cap">Креатив</span></div>
+      <div class="media-ph"><span class="cap">Видео</span></div>
+      <div class="media-ph"><span class="cap">Публикация в СМИ</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 14. FACTS -->
+<section class="block" id="facts">
+  <div class="wrap">
+    <span class="eyebrow">08 — Выводы</span>
+    <h2 class="h2">Интересные факты</h2>
+    <div class="facts">
+      <div class="fact"><h4 class="ph">[Наблюдение 1]</h4><p class="ph">[Короткий практический вывод, который пригодится читателю.]</p></div>
+      <div class="fact"><h4 class="ph">[Наблюдение 2]</h4><p class="ph">[Короткий практический вывод.]</p></div>
+      <div class="fact"><h4 class="ph">[Наблюдение 3]</h4><p class="ph">[Короткий практический вывод.]</p></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- 15. AUTHOR -->
+<section class="block">
+  <div class="wrap">
+    <div class="author">
+      <div class="ava">фото<br>автора</div>
+      <div class="who">
+        <b>Михаил Труфанов</b>
+        <div class="role">Маркетолог и PR-директор</div>
+        <p class="ph">[1–2 строки: 22 года в маркетинге и PR, основатель HOUSE MEDIA. Этот кейс — часть практики, опыт которой получают и клиенты.]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 16. FORM -->
+<section class="block formsec" id="form">
+  <div class="wrap">
+    <span class="eyebrow">Обсудить проект</span>
+    <h2 class="h2">Расскажите про задачу — скажу, где точки роста</h2>
+    <p class="rich" style="margin-bottom:6px">Посмотрю задачу и скажу, берусь ли и с чего начать. Отвечаю быстро в мессенджерах.</p>
+    <form onsubmit="return false">
+      <div class="form-grid">
+        <div class="field"><label class="fl">Как вас зовут</label><input type="text" placeholder="Имя"></div>
+        <div class="field"><label class="fl">Телефон или мессенджер</label><input type="text" placeholder="+7 ___ ___ __ __ / Telegram"></div>
+        <div class="field full"><label class="fl">Пара слов о задаче</label><textarea placeholder="Коротко о проекте и цели"></textarea></div>
+      </div>
+      <label class="consent"><input type="checkbox" required> Отправляя форму, соглашаюсь с <a href="#">политикой конфиденциальности</a> и обработкой персональных данных.</label>
+      <button class="btn btn-fill" type="submit">Отправить заявку</button>
+    </form>
+  </div>
+</section>
+
+<!-- 17. CASE NAV -->
+<section class="block casenav" id="cases">
+  <div class="wrap">
+    <div class="row">
+      <a href="#">← <span class="ph">[Предыдущий кейс]</span></a>
+      <a href="#" class="all">Все кейсы</a>
+      <a href="#"><span class="ph">[Следующий кейс]</span> →</a>
+    </div>
+    <div style="height:6px"></div>
+    <span class="eyebrow">Смотрите также</span>
+    <h2 class="h2" style="margin-top:8px">Другие кейсы</h2>
+    <div class="others">
+      <a class="ocard" href="#"><div class="oimg media-ph"><span class="cap">превью</span></div><div class="obody"><span class="otag ph">[Категория]</span><h4 class="ph">[Название кейса]</h4><p class="ph">[Одна строка результата.]</p></div></a>
+      <a class="ocard" href="#"><div class="oimg media-ph"><span class="cap">превью</span></div><div class="obody"><span class="otag ph">[Категория]</span><h4 class="ph">[Название кейса]</h4><p class="ph">[Одна строка результата.]</p></div></a>
+      <a class="ocard" href="#"><div class="oimg media-ph"><span class="cap">превью</span></div><div class="obody"><span class="otag ph">[Категория]</span><h4 class="ph">[Название кейса]</h4><p class="ph">[Одна строка результата.]</p></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="top">
+      <nav class="fmenu">
+        <a href="#">Услуги</a><a href="#">Маркетинг с ИИ</a><a href="#">Кейсы</a><a href="#">FAQ</a><a href="#">Контакты</a>
+      </nav>
+      <div class="socs">
+        <a class="soc" href="#" aria-label="Telegram"><svg viewBox="0 0 24 24"><path d="M9.8 15.6l-.4 4.2c.5 0 .8-.2 1.1-.5l2.6-2.4 5.4 3.9c1 .5 1.7.3 1.9-.9l3.5-16.3c.3-1.4-.5-2-1.5-1.6L1.2 9.4C-.1 9.9 0 10.7 1 11l5.5 1.7L20 4.2c.6-.4 1.2-.2.7.2z"/></svg></a>
+        <a class="soc" href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.2.2-.3.4-.1.7.2.3.9 1.5 2 2.4 1.4 1.2 2.5 1.6 2.8 1.7.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.3.6.4.1.2.1.8-.1 1.5z"/></svg></a>
+      </div>
+    </div>
+    <div class="copy">
+      <span>© Михаил Труфанов · маркетолог и PR-директор. HOUSE MEDIA · YOKEEOPT</span>
+      <span class="mono">+7 914 792 66 96 · m.trufanov@hmedia.pro</span>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY CTA -->
+<a class="stickycta" id="stickycta" href="#form"><span class="btn btn-fill">Обсудить проект</span></a>
+<div class="mobicta"><a class="btn btn-fill" href="#form">Обсудить проект</a></div>
+
+<script>
+(function(){
+  var s=document.getElementById('stickycta');
+  function upd(){ if(window.scrollY>560){s.classList.add('show')}else{s.classList.remove('show')} }
+  window.addEventListener('scroll',upd,{passive:true}); upd();
+})();
+</script>
+</body>
+</html>
