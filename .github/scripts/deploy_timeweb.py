@@ -97,10 +97,10 @@ def verify_remote():
     with FTP(timeout=30) as ftp:
         ftp.connect(os.environ["FTP_SERVER"], 21)
         ftp.login(os.environ["FTP_USERNAME"], os.environ["FTP_PASSWORD"])
-        ftp.cwd(os.environ["FTP_SITE_DIR"])
+        ftp.cwd("/")
         names = {posixpath.basename(item.rstrip("/")) for item in ftp.nlst()}
         if "index.html" not in names:
-            raise ValueError("The configured FTP_SITE_DIR has no index.html; upload stopped")
+            raise ValueError("FTP root has no index.html; upload stopped")
         print("Destination folder contains index.html")
 
 

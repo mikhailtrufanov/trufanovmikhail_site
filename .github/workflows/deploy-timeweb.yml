@@ -21,21 +21,13 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Prepare HTML and linked media
-        env:
-          FTP_SITE_DIR: ${{ vars.FTP_SITE_DIR }}
-        run: |
-          if [[ -z "$FTP_SITE_DIR" || "$FTP_SITE_DIR" == "/" ]]; then
-            echo "Set FTP_SITE_DIR to the site folder in GitHub repository variables."
-            exit 1
-          fi
-          python3 .github/scripts/deploy_timeweb.py --stage
+        run: python3 .github/scripts/deploy_timeweb.py --stage
 
       - name: Check destination folder
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_SITE_DIR: ${{ vars.FTP_SITE_DIR }}
         run: python3 .github/scripts/deploy_timeweb.py --verify-remote
 
       - name: FTP Deploy
@@ -45,5 +37,5 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./.deploy/
-          server-dir: ${{ vars.FTP_SITE_DIR }}/
+          server-dir: /
           dangerous-clean-slate: false
