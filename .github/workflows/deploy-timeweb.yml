@@ -20,14 +20,30 @@ jobs:
       - name: Check out site
         uses: actions/checkout@v5
 
-      - name: Check site files and media links
-        run: python3 .github/scripts/deploy_timeweb.py --check
+      - name: Prepare HTML and linked media
+        env:
+          FTP_SITE_DIR: ${{ vars.FTP_SITE_DIR }}
+        run: |
+          if [[ -z "$FTP_SITE_DIR" || "$FTP_SITE_DIR" == "/" ]]; then
+            echo "Set FTP_SITE_DIR to the site folder in GitHub repository variables."
+            exit 1
+          fi
+          python3 .github/scripts/deploy_timeweb.py --stage
 
-      - name: Upload site over encrypted FTP
+      - name: Check destination folder
         env:
           FTP_SERVER: ${{ secrets.FTP_SERVER }}
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
           FTP_SITE_DIR: ${{ vars.FTP_SITE_DIR }}
-          FTP_CERT_SHA256: ${{ vars.FTP_CERT_SHA256 }}
-        run: python3 .github/scripts/deploy_timeweb.py
+        run: python3 .github/scripts/deploy_timeweb.py --verify-remote
+
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./.deploy/
+          server-dir: ${{ vars.FTP_SITE_DIR }}/
+          dangerous-clean-slate: false

@@ -1,14 +1,12 @@
 """Deploy root HTML pages and the local media they reference to Timeweb."""
 
 import argparse
-import hashlib
-import hmac
 import os
 import posixpath
 import re
-import ssl
+import shutil
 import subprocess
-from ftplib import FTP_TLS
+from ftplib import FTP
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import unquote, urlsplit
@@ -86,61 +84,37 @@ def site_files():
     return sorted(media) + sorted(page for page in pages if page != "index.html") + ["index.html"]
 
 
-def deploy(files):
-    names = ("FTP_SERVER", "FTP_USERNAME", "FTP_PASSWORD", "FTP_SITE_DIR", "FTP_CERT_SHA256")
-    missing = [name for name in names if not os.environ.get(name)]
-    if missing:
-        raise ValueError("Missing GitHub secrets or variable: " + ", ".join(missing))
+def stage(files):
+    output = ROOT / ".deploy"
+    output.mkdir(exist_ok=True)
+    for path in files:
+        destination = output / path
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(ROOT / path, destination)
 
-    host = os.environ["FTP_SERVER"].strip()
-    user = os.environ["FTP_USERNAME"]
-    password = os.environ["FTP_PASSWORD"]
-    remote_dir = os.environ["FTP_SITE_DIR"].strip()
-    expected_fingerprint = re.sub(r"[^0-9a-fA-F]", "", os.environ["FTP_CERT_SHA256"]).lower()
-    if "://" in host or "/" in host or not remote_dir or remote_dir == "/":
-        raise ValueError("Check FTP host and site directory secrets")
-    if len(expected_fingerprint) != 64:
-        raise ValueError("FTP_CERT_SHA256 must be a SHA-256 certificate fingerprint")
 
-    # Timeweb may use a self-signed FTP certificate. Pin it before sending credentials.
-    context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
-    context.check_hostname = False
-    context.verify_mode = ssl.CERT_NONE
-    with FTP_TLS(timeout=30, context=context) as ftp:
-        ftp.connect(host, 21)
-        ftp.auth()
-        actual_fingerprint = hashlib.sha256(ftp.sock.getpeercert(binary_form=True)).hexdigest()
-        if not hmac.compare_digest(actual_fingerprint, expected_fingerprint):
-            raise ValueError("FTP certificate fingerprint does not match FTP_CERT_SHA256")
-        ftp.login(user, password)
-        ftp.prot_p()
-        ftp.cwd(remote_dir)  # The configured site directory must already exist.
-        base_dir = ftp.pwd()
-        current_dir = None
-        for path in files:
-            folder = posixpath.dirname(path)
-            if folder != current_dir:
-                ftp.cwd(base_dir)
-                if folder:
-                    for part in folder.split("/"):
-                        try:
-                            ftp.cwd(part)
-                        except Exception:
-                            ftp.mkd(part)
-                            ftp.cwd(part)
-                current_dir = folder
-            with (ROOT / path).open("rb") as stream:
-                ftp.storbinary(f"STOR {posixpath.basename(path)}", stream)
-            print(f"Uploaded: {path}")
+def verify_remote():
+    with FTP(timeout=30) as ftp:
+        ftp.connect(os.environ["FTP_SERVER"], 21)
+        ftp.login(os.environ["FTP_USERNAME"], os.environ["FTP_PASSWORD"])
+        ftp.cwd(os.environ["FTP_SITE_DIR"])
+        names = {posixpath.basename(item.rstrip("/")) for item in ftp.nlst()}
+        if "index.html" not in names:
+            raise ValueError("The configured FTP_SITE_DIR has no index.html; upload stopped")
+        print("Destination folder contains index.html")
 
 
 if __name__ == "__main__":
     argument_parser = argparse.ArgumentParser()
-    argument_parser.add_argument("--check", action="store_true", help="List files without connecting to Timeweb")
+    argument_parser.add_argument("--stage", action="store_true", help="Copy selected files to .deploy")
+    argument_parser.add_argument("--verify-remote", action="store_true", help="Check target FTP directory before upload")
     args = argument_parser.parse_args()
+    if args.verify_remote:
+        verify_remote()
+        raise SystemExit(0)
     selected = site_files()
     print(f"Selected {len(selected)} files:")
     for selected_file in selected:
         print(f"  {selected_file}")
-    if not args.check:
-        deploy(selected)
+    if args.stage:
+        stage(selected)
