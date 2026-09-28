@@ -1,0 +1,32 @@
+name: Deploy site to Timeweb
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: timeweb-site
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v4
+
+      - name: Check site files and media links
+        run: python3 .github/scripts/deploy_timeweb.py --check
+
+      - name: Upload site over encrypted FTP
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_SITE_DIR: ${{ vars.FTP_SITE_DIR }}
+        run: python3 .github/scripts/deploy_timeweb.py
