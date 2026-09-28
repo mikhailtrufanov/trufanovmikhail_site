@@ -1,6 +1,8 @@
 """Deploy root HTML pages and the local media they reference to Timeweb."""
 
 import argparse
+import hashlib
+import hmac
 import os
 import posixpath
 import re
@@ -85,7 +87,7 @@ def site_files():
 
 
 def deploy(files):
-    names = ("FTP_SERVER", "FTP_USERNAME", "FTP_PASSWORD", "FTP_SITE_DIR")
+    names = ("FTP_SERVER", "FTP_USERNAME", "FTP_PASSWORD", "FTP_SITE_DIR", "FTP_CERT_SHA256")
     missing = [name for name in names if not os.environ.get(name)]
     if missing:
         raise ValueError("Missing GitHub secrets or variable: " + ", ".join(missing))
@@ -94,11 +96,22 @@ def deploy(files):
     user = os.environ["FTP_USERNAME"]
     password = os.environ["FTP_PASSWORD"]
     remote_dir = os.environ["FTP_SITE_DIR"].strip()
+    expected_fingerprint = re.sub(r"[^0-9a-fA-F]", "", os.environ["FTP_CERT_SHA256"]).lower()
     if "://" in host or "/" in host or not remote_dir or remote_dir == "/":
         raise ValueError("Check FTP host and site directory secrets")
+    if len(expected_fingerprint) != 64:
+        raise ValueError("FTP_CERT_SHA256 must be a SHA-256 certificate fingerprint")
 
-    with FTP_TLS(timeout=30, context=ssl.create_default_context()) as ftp:
+    # Timeweb may use a self-signed FTP certificate. Pin it before sending credentials.
+    context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+    context.check_hostname = False
+    context.verify_mode = ssl.CERT_NONE
+    with FTP_TLS(timeout=30, context=context) as ftp:
         ftp.connect(host, 21)
+        ftp.auth()
+        actual_fingerprint = hashlib.sha256(ftp.sock.getpeercert(binary_form=True)).hexdigest()
+        if not hmac.compare_digest(actual_fingerprint, expected_fingerprint):
+            raise ValueError("FTP certificate fingerprint does not match FTP_CERT_SHA256")
         ftp.login(user, password)
         ftp.prot_p()
         ftp.cwd(remote_dir)  # The configured site directory must already exist.
