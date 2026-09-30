@@ -1,0 +1,1689 @@
+<!doctype html>
+<html lang="ru" data-lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Кейс Tigre de Cristal &mdash; продвижение казино · Михаил Труфанов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1113;
+      --panel: #1d2126;
+      --panel-2: #15181c;
+      --grey: #303740;
+      --fg: #f2f2f2;
+      --card-text: #e6e6e6;
+      --muted: #8b8f95;
+      --amber: #e6a23c;
+      --amber-deep: #c8842a;
+      --line: rgba(243, 240, 233, .12);
+      --font-display: "Oswald", -apple-system, Segoe UI, Roboto, sans-serif;
+      --font: "Montserrat", -apple-system, Segoe UI, Roboto, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, monospace;
+      --max: 1240px;
+      --pad: 20px;
+      --read: 760px;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    html[data-lang="en"] .ru {
+      display: none !important
+    }
+
+    html[data-lang="ru"] .en {
+      display: none !important
+    }
+
+    img {
+      max-width: 100%
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad)
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin: 0;
+      font-weight: 600;
+      line-height: 1.15
+    }
+
+    p {
+      margin: 0
+    }
+
+    .amber {
+      color: var(--amber)
+    }
+
+    .mono {
+      font-family: var(--mono)
+    }
+
+    /* header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(15, 17, 19, .82);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line)
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 78px;
+      gap: 16px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .brand svg {
+      width: 31px;
+      height: 32px;
+      flex: 0 0 auto
+    }
+
+    .brand b {
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: .14em;
+      text-transform: uppercase
+    }
+
+    .menu {
+      display: flex;
+      gap: 26px;
+      font-size: 15px;
+      color: #d7d4cc
+    }
+
+    .menu a {
+      position: relative;
+      padding: 4px 0
+    }
+
+    .menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background: var(--amber);
+      transition: width .25s
+    }
+
+    .menu a:hover::after {
+      width: 100%
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px
+    }
+
+    .lang {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      overflow: hidden
+    }
+
+    .lang button {
+      background: transparent;
+      border: 0;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 8px 12px;
+      cursor: pointer
+    }
+
+    .lang button.active {
+      background: var(--amber);
+      color: #1a1206;
+      font-weight: 700
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: .2s
+    }
+
+    .btn-fill {
+      background: var(--amber);
+      color: #1a1206
+    }
+
+    .btn-fill:hover {
+      background: var(--amber-deep)
+    }
+
+    .nav .btn {
+      padding: 10px 18px;
+      font-size: 14px
+    }
+
+    /* breadcrumbs */
+    .crumbs {
+      padding: 18px 0 0
+    }
+
+    .crumbs .wrap {
+      font-size: 13px;
+      color: var(--muted);
+      font-family: var(--mono);
+      letter-spacing: .03em
+    }
+
+    .crumbs a:hover {
+      color: var(--amber)
+    }
+
+    .crumbs .sep {
+      margin: 0 8px;
+      opacity: .5
+    }
+
+    /* hero */
+    .hero {
+      padding: 40px 0 26px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .hero .wrap {
+      max-width: 960px
+    }
+
+    .hero .kicker {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--amber)
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 4.6vw, 54px);
+      letter-spacing: .01em;
+      text-transform: uppercase;
+      margin: 16px 0 12px
+    }
+
+    .hero .sub {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.4vw, 28px);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .02em
+    }
+
+    /* article */
+    .article {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px var(--pad) 0
+    }
+
+    .article>* {
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .tx {
+      max-width: var(--read);
+      margin-top: 16px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 17px;
+      color: var(--card-text)
+    }
+
+    .tx b {
+      color: var(--fg)
+    }
+
+    h2.sh {
+      max-width: var(--read);
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: clamp(24px, 3vw, 34px);
+      letter-spacing: .01em;
+      margin-top: 56px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    h2.sh.wide {
+      max-width: 1080px
+    }
+
+    .wide-block h2.sh,
+    .wide-block .tx,
+    .wide-block .chips,
+    .wide-block .subtx,
+    .wide-block .note,
+    .wide-block h3.lbl,
+    .wide-block ul.li,
+    .wide-block .emph {
+      max-width: 1080px
+    }
+
+    h2.sh::before {
+      content: "";
+      display: block;
+      width: 46px;
+      height: 3px;
+      background: var(--amber);
+      border-radius: 2px;
+      margin-bottom: 16px
+    }
+
+    h3.lbl {
+      max-width: var(--read);
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 19px;
+      color: var(--fg);
+      margin-top: 34px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    h4.subh {
+      max-width: var(--read);
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--fg);
+      margin-top: 26px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    ul.li {
+      max-width: var(--read);
+      list-style: none;
+      padding: 0;
+      margin-top: 14px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    ul.li>li {
+      position: relative;
+      padding: 9px 0 9px 28px;
+      border-bottom: 1px solid var(--line);
+      color: var(--card-text)
+    }
+
+    ul.li>li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 15px;
+      width: 9px;
+      height: 9px;
+      border-radius: 3px;
+      background: var(--amber)
+    }
+
+    ul.li.list-plain>li {
+      padding-left: 2px
+    }
+
+    ul.li.list-plain>li::before {
+      display: none
+    }
+
+    /* emphasis line */
+    .emph {
+      max-width: var(--read);
+      margin-top: 28px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      color: var(--amber);
+      font-size: clamp(20px, 2.6vw, 30px)
+    }
+
+    /* important callout */
+    .note {
+      max-width: var(--read);
+      margin-top: 26px;
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(230, 162, 60, .09);
+      border: 1px solid rgba(230, 162, 60, .32);
+      border-left: 4px solid var(--amber);
+      border-radius: 10px;
+      padding: 18px 22px;
+      color: var(--card-text);
+      font-size: 16px
+    }
+
+    .note b {
+      color: var(--amber);
+      font-weight: 700
+    }
+
+    /* footnote */
+    .fnote {
+      max-width: var(--read);
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      font-size: 13.5px;
+      color: var(--muted);
+      font-style: italic
+    }
+
+    /* figures */
+    .fig {
+      margin-top: 34px;
+      text-align: center
+    }
+
+    .fig img {
+      display: block;
+      margin: 0 auto;
+      border-radius: 10px;
+      height: auto
+    }
+
+    .fig.mid img {
+      max-width: 760px
+    }
+
+    .fig.wide img {
+      max-width: 1080px
+    }
+
+    .fig.tall img {
+      max-width: 640px
+    }
+
+    .fig.narrow img {
+      max-width: 470px
+    }
+
+    .fig figcaption {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic
+    }
+
+    /* slide with text placed on its own background */
+    .slide-frame {
+      position: relative;
+      max-width: 1080px;
+      margin: 0 auto
+    }
+
+    .slide-frame img {
+      width: 100%
+    }
+
+    .slide-frame .slide-text {
+      position: absolute;
+      left: 5.6%;
+      top: 15%;
+      width: 36%;
+      text-align: left
+    }
+
+    .slide-frame .slide-text.slide-text-tasks {
+      top: 8%
+    }
+
+    .slide-frame .slide-text h3.lbl {
+      max-width: none;
+      margin: 15px 0 0;
+      font-size: 16px;
+      color: var(--amber)
+    }
+
+    .slide-frame .slide-text h2.sh {
+      max-width: none;
+      margin: 0;
+      font-size: 22px;
+      color: var(--amber)
+    }
+
+    .slide-frame .slide-text h2.sh::before {
+      display: none
+    }
+
+    .slide-frame .slide-text h3.lbl:first-child,
+    .slide-frame .slide-text h3.lbl:first-child+h3.lbl {
+      margin-top: 0
+    }
+
+    .slide-frame .slide-text .tx {
+      max-width: none;
+      margin: 6px 0 0;
+      font-size: 14px;
+      line-height: 1.44
+    }
+
+    .slide-frame .slide-text ul.li {
+      max-width: none;
+      margin: 6px 0 0
+    }
+
+    .slide-frame .slide-text ul.li>li {
+      font-size: 13.5px;
+      padding: 5px 0 5px 22px
+    }
+
+    .slide-frame .slide-text ul.li>li>b.num:first-child {
+      color: #ff5c5c
+    }
+
+    .slide-frame .slide-text .note {
+      max-width: none;
+      margin: 12px 0 0;
+      padding: 12px 16px;
+      font-size: 13.5px
+    }
+
+    .slide-frame .slide-text .subtx {
+      max-width: none;
+      margin: 40px 0 0;
+      font-size: 13px;
+      line-height: 1.35;
+      color: var(--amber)
+    }
+
+    .slide-frame .slide-text.slide-text-full {
+      left: 5.6%;
+      width: 88.8%;
+      top: 0;
+      height: 52%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center
+    }
+
+    .slide-frame .slide-text.slide-text-stats {
+      left: 5.6%;
+      top: 0;
+      width: 68%;
+      height: 51.3%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center
+    }
+
+    .slide-frame .slide-text.slide-text-pie {
+      left: 5.5%;
+      top: 9%;
+      width: 55%
+    }
+
+    .slide-frame .slide-text.slide-text-list {
+      left: 5.6%;
+      top: 10.05%;
+      height: 79.65%;
+      width: 45%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center
+    }
+
+    .slide-frame .slide-text.slide-text-list h2.sh {
+      font-size: 18px
+    }
+
+    .slide-frame .slide-text.slide-text-list ul.li {
+      margin-top: 5px
+    }
+
+    .slide-frame .slide-text.slide-text-list ul.li>li {
+      font-size: 13px;
+      padding: 2px 0 2px 20px
+    }
+
+    .slide-frame .slide-text.slide-text-list ul.li>li::before {
+      top: 50%;
+      transform: translateY(-50%)
+    }
+
+    /* contacts */
+    .contact {
+      margin-top: 60px;
+      background: var(--panel-2);
+      border-top: 1px solid var(--line);
+      padding: 44px 0
+    }
+
+    .contact .in {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 var(--pad);
+      text-align: center
+    }
+
+    .contact p {
+      color: var(--card-text);
+      font-size: 17px
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 22px
+    }
+
+    .cbtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 13px 20px;
+      font-size: 15px;
+      color: var(--fg);
+      transition: .16s
+    }
+
+    .cbtn:hover {
+      border-color: var(--amber);
+      color: var(--amber)
+    }
+
+    .cbtn svg {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto
+    }
+
+    .cbtn.tg svg {
+      fill: #e6a23c
+    }
+
+    .cbtn.wa svg {
+      fill: #e6a23c
+    }
+
+    .cbtn.max svg {
+      fill: #e6a23c
+    }
+
+    /* case navigation */
+    .casenav {
+      border-top: 1px solid var(--line);
+      padding: 44px 0 54px
+    }
+
+    .casenav .in {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad)
+    }
+
+    .casenav .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap
+    }
+
+    .casenav .row a {
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: .04em;
+      color: var(--muted)
+    }
+
+    .casenav .row a:hover {
+      color: var(--amber)
+    }
+
+    .casenav .row .all {
+      color: var(--fg)
+    }
+
+    .casenav .eyebrow {
+      display: block;
+      margin-top: 40px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--amber)
+    }
+
+    .casenav h2 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: clamp(24px, 3vw, 34px);
+      letter-spacing: .01em;
+      margin-top: 8px
+    }
+
+    .others {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 24px
+    }
+
+    .ocard {
+      display: block;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: .16s
+    }
+
+    .ocard:hover {
+      border-color: rgba(230, 162, 60, .5);
+      transform: translateY(-2px)
+    }
+
+    .ocard .oimg {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--panel-2);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .05em;
+      text-transform: uppercase
+    }
+
+    .ocard .obody {
+      padding: 16px 18px
+    }
+
+    .ocard .otag {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--amber)
+    }
+
+    .ocard h4 {
+      font-size: 16px;
+      margin: 8px 0 6px;
+      color: var(--fg);
+      font-weight: 700
+    }
+
+    .ocard p {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    @media(max-width: 760px) {
+      .others {
+        grid-template-columns: 1fr
+      }
+
+      .slide-frame .slide-text {
+        position: static;
+        width: auto;
+        margin-bottom: 20px
+      }
+
+      .slide-frame .slide-text h3.lbl,
+      .slide-frame .slide-text h2.sh,
+      .slide-frame .slide-text .tx,
+      .slide-frame .slide-text ul.li,
+      .slide-frame .slide-text .note,
+      .slide-frame .slide-text .subtx {
+        max-width: var(--read)
+      }
+
+      .slide-frame .slide-text h3.lbl {
+        font-size: 19px
+      }
+
+      .slide-frame .slide-text h2.sh {
+        font-size: clamp(24px, 3vw, 34px);
+        margin-top: 0
+      }
+
+      .slide-frame .slide-text h2.sh::before {
+        display: block
+      }
+
+      .slide-frame .slide-text .tx {
+        font-size: 17px
+      }
+
+      .slide-frame .slide-text ul.li>li {
+        font-size: 15px;
+        padding: 9px 0 9px 28px
+      }
+
+      .slide-frame .slide-text .note {
+        font-size: 16px;
+        padding: 18px 22px
+      }
+
+      .slide-frame .slide-text .subtx {
+        font-size: 15px;
+        line-height: 1.62
+      }
+    }
+
+    /* footer */
+    .footer {
+      background: #0b0d0e;
+      border-top: 1px solid var(--line);
+      padding: 36px 0 28px
+    }
+
+    .footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center
+    }
+
+    .footer .copy {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .footer .mono {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    @media(max-width:640px) {
+      .menu {
+        display: none
+      }
+    }
+
+
+    /* casino-specific additions */
+    .subtx {
+      max-width: var(--read);
+      margin: 12px auto 0;
+      color: var(--muted);
+      font-size: 15px
+    }
+
+    .num {
+      color: var(--amber);
+      font-weight: 700;
+      font-family: var(--font-display);
+      font-size: 1.12em;
+      letter-spacing: .01em
+    }
+
+    .riskgrid {
+      max-width: 1080px;
+      margin: 18px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px
+    }
+
+    .riskcard {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 16px 18px
+    }
+
+    .riskcard .rk {
+      color: var(--fg);
+      font-weight: 600
+    }
+
+    .riskcard .cs {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 7px;
+      padding-left: 22px;
+      position: relative
+    }
+
+    .riskcard .cs::before {
+      content: "\2192";
+      position: absolute;
+      left: 0;
+      color: var(--amber);
+      font-weight: 700
+    }
+
+    .chips {
+      max-width: var(--read);
+      margin: 16px auto 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px
+    }
+
+    .chip {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--amber);
+      border-radius: 8px;
+      padding: 14px 16px;
+      color: var(--card-text);
+      font-size: 15px
+    }
+
+    ul.li ul {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 2px
+    }
+
+    ul.li ul li {
+      position: relative;
+      padding: 7px 0 7px 26px;
+      border-bottom: 1px dashed var(--line);
+      color: var(--muted);
+      font-size: 15px
+    }
+
+    ul.li ul li::before {
+      content: "\2013";
+      position: absolute;
+      left: 6px;
+      top: 7px;
+      background: none;
+      width: auto;
+      height: auto;
+      color: var(--amber)
+    }
+
+    @media(max-width:640px) {
+      .chips {
+        grid-template-columns: 1fr
+      }
+    }
+  </style>
+<style id="shared-site-navigation">
+/* Shared navigation: website development stays on one line. */
+header .menu{gap:16px;font-size:13px;flex-shrink:0}
+header .menu a{white-space:nowrap;flex-shrink:0}
+header .brand,header .logo,header .nav-right,header .right{flex-shrink:0}
+header .brand b{font-size:14px;white-space:nowrap}
+header .nav,header.header .wrap{gap:16px}
+@media(max-width:1180px){
+  header .nav,header.header .wrap{height:auto;min-height:78px;flex-wrap:wrap;padding-top:14px;padding-bottom:10px;row-gap:10px}
+  header .nav-right,header .right{margin-left:auto}
+  header .menu{display:flex;order:3;flex-basis:100%;min-width:0;max-width:100%;margin-left:0;justify-content:center;overflow-x:auto;padding:4px 0 8px;scrollbar-width:thin;scrollbar-color:var(--amber) transparent}
+  html{scroll-padding-top:142px}
+}
+@media(max-width:640px){
+  header .menu{justify-content:flex-start;gap:20px;font-size:12px}
+  header .brand{gap:8px}
+  header .brand b{font-size:10px;letter-spacing:.07em}
+  header .brand svg,header .brand img{width:24px;height:26px}
+  header .logo{font-size:16px;white-space:nowrap;gap:8px}
+  header .nav-right>.btn,header .right>.btn{display:none}
+  header .lang button{padding:8px;font-size:11px}
+}
+</style>
+<style id="mobile-layout">
+    /* Mobile: content never wider than the header, burger menu. */
+    header .burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 42px;
+      height: 42px;
+      padding: 0 10px;
+      margin-left: 4px;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      cursor: pointer;
+      flex-shrink: 0
+    }
+
+    header .burger span {
+      display: block;
+      height: 2px;
+      background: var(--fg);
+      border-radius: 2px;
+      transition: transform .25s, opacity .2s
+    }
+
+    header.menu-open .burger span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    header.menu-open .burger span:nth-child(2) {
+      opacity: 0
+    }
+
+    header.menu-open .burger span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    @media(max-width:900px) {
+      body {
+        overflow-x: hidden
+      }
+
+      img,
+      video,
+      iframe,
+      canvas {
+        max-width: 100% !important
+      }
+
+      img {
+        height: auto
+      }
+
+      figure.fig {
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 100%
+      }
+
+      html {
+        scroll-padding-top: 80px
+      }
+
+      header .nav {
+        position: relative;
+        flex-wrap: nowrap;
+        height: 64px;
+        min-height: 64px;
+        padding-top: 0;
+        padding-bottom: 0
+      }
+
+      header .brand {
+        min-width: 0;
+        flex-shrink: 1
+      }
+
+      header .nav-right {
+        margin-left: auto
+      }
+
+      header .burger {
+        display: inline-flex
+      }
+
+      header .menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        order: 0;
+        flex-direction: column;
+        gap: 0;
+        max-width: none;
+        max-height: calc(100vh - 64px);
+        overflow-y: auto;
+        padding: 6px var(--pad) 14px;
+        font-size: 16px;
+        background: rgba(15, 17, 19, .97);
+        border-bottom: 1px solid var(--line);
+        box-shadow: 0 18px 30px rgba(0, 0, 0, .35)
+      }
+
+      header.menu-open .menu {
+        display: flex
+      }
+
+      header .menu a {
+        padding: 14px 0;
+        white-space: normal;
+        border-bottom: 1px solid var(--line)
+      }
+
+      header .menu a:last-child {
+        border-bottom: 0
+      }
+
+      header .menu a::after {
+        display: none
+      }
+    }
+  </style>
+</head>
+
+<body id="top">
+
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="index.html#top">
+        <svg viewBox="0 0 31 32" fill="none" aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M16.1092 0V22.9666C16.1092 23.7761 14.8766 23.7761 14.8766 22.9666V0H0V13.4351L6.82907 17.468V8.43467C6.82907 7.61563 8.04753 7.60126 8.04753 8.43467V27.9527L14.8766 31.9856L16.0289 32L22.9383 27.7611V8.4203C22.9714 7.59647 24.1568 7.63 24.1568 8.4203V17.468L31 13.5022V0H16.1092Z"
+            fill="#e6a23c" />
+        </svg>
+        <b><span class="ru">МИХАИЛ&nbsp;ТРУФАНОВ</span><span class="en">MIKHAIL TRUFANOV</span></b>
+      </a>
+      <nav class="menu" id="site-menu">
+        <a href="index.html#services"><span class="ru">Услуги</span><span class="en">Services</span></a>
+        <a href="sites_prises.html"><span class="ru">Разработка сайтов</span><span class="en">Website development</span></a>
+        <a href="index.html#ai"><span class="ru">Маркетинг с ИИ</span><span class="en">AI marketing</span></a>
+        <a href="#cases"><span class="ru">Кейсы</span><span class="en">Cases</span></a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="#contact"><span class="ru">Контакты</span><span class="en">Contacts</span></a>
+      </nav>
+      <div class="nav-right">
+        <div class="lang" role="group" aria-label="Language / Язык">
+          <button data-set-lang="ru" class="active" type="button">RU</button>
+          <button data-set-lang="en" type="button">EN</button>
+        </div>
+        <a class="btn btn-fill" href="#contact"><span class="ru">Обсудить проект</span><span class="en">Let’s
+            talk</span></a>
+      </div>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="site-menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="crumbs">
+    <div class="wrap"><a href="#"><span class="ru">Главная</span><span class="en">Home</span></a><span
+        class="sep">→</span><a href="#"><span class="ru">Кейсы</span><span class="en">Cases</span></a><span
+        class="sep">→</span>Tigre de Cristal</div>
+  </div>
+
+  <section class="hero">
+    <div class="wrap">
+      <p class="kicker"><span class="ru">Кейс · игорная зона «Приморье»</span><span class="en">Case study ·
+          Primorye gaming zone</span></p>
+      <h1><span class="ru">Продвижение казино Tigre de Cristal</span><span class="en">Promoting Tigre de Cristal
+          casino</span></h1>
+      <p class="sub"><span class="ru">Игорная зона «Приморье»</span><span class="en">Primorye gaming zone</span></p>
+    </div>
+  </section>
+
+  <div class="article">
+
+    <figure class="fig wide">
+      <div class="slide-frame">
+        <div class="slide-text">
+          <h3 class="lbl ru">Проблематика:</h3>
+          <h3 class="lbl en">The challenge:</h3>
+          <p class="tx ru">запрет на прямую рекламу казино</p>
+          <p class="tx en">A ban on direct advertising of casinos</p>
+
+          <h3 class="lbl ru">Гео:</h3>
+          <h3 class="lbl en">Target regions:</h3>
+          <p class="tx ru">Приморский край, Хабаровский край</p>
+          <p class="tx en">Primorsky Krai, Khabarovsk Krai</p>
+
+          <h3 class="lbl ru">Решение:</h3>
+          <h3 class="lbl en">The solution:</h3>
+          <p class="tx ru">организация конкурса талантов «Cristal Broadway Show» на площадке казино Tigre de Cristal,
+            привлечение жителей Дальнего Востока в качестве участников и гостей шоу</p>
+          <p class="tx en">Organise the Cristal Broadway Show talent competition at Tigre de Cristal casino,
+            attracting residents of the Russian Far East as performers and audience members.</p>
+
+          <h3 class="lbl ru">Цели Cristal Broadway Show:</h3>
+          <h3 class="lbl en">Cristal Broadway Show objectives:</h3>
+          <ul class="li ru">
+            <li>увеличить количество активных посетителей казино,</li>
+            <li>привлечь в шоу артистов,</li>
+            <li>повысить лояльность жителей региона к казино,</li>
+            <li>повысить узнаваемость Tigre de Cristal.</li>
+          </ul>
+          <ul class="li en">
+            <li>Increase the number of active casino visitors,</li>
+            <li>Recruit performers for the show,</li>
+            <li>Build goodwill towards the casino among local residents,</li>
+            <li>Raise awareness of Tigre de Cristal.</li>
+          </ul>
+        </div>
+        <img src="./casino_case_media/2nopoints.png" alt="">
+      </div>
+    </figure>
+
+    <figure class="fig wide">
+      <div class="slide-frame">
+        <div class="slide-text slide-text-tasks">
+          <h3 class="lbl ru">Задачи, которые необходимо было решить:</h3>
+          <h3 class="lbl en">Key tasks:</h3>
+          <ul class="li ru">
+            <li>Прогнозирование и сокращение медийных рисков</li>
+            <li>Привлечение артистов на проект</li>
+            <li>Привлечение зрителей в казино</li>
+            <li>Повышение узнаваемости казино, формирование желания посещения</li>
+            <li>Прогнозирование и предотвращение юридических рисков в рамках всего проекта</li>
+          </ul>
+          <ul class="li en">
+            <li>Anticipate and mitigate media and reputational risks</li>
+            <li>Recruit performers for the project</li>
+            <li>Attract audiences to the casino</li>
+            <li>Raise awareness of the casino and build interest in visiting</li>
+            <li>Anticipate and prevent legal risks throughout the project</li>
+          </ul>
+        </div>
+        <img src="./casino_case_media/3nopoints.png" alt="">
+      </div>
+    </figure>
+
+    <h2 class="sh wide ru">Прогнозирование и сокращение медийных рисков</h2>
+    <h2 class="sh wide en">Anticipating and mitigating media and reputational risks</h2>
+    <div class="riskgrid ru">
+      <div class="riskcard">
+        <div class="rk">Недоверие аудитории ко всей рекламной кампании</div>
+        <div class="cs">снижение эффективность расходования бюджета</div>
+      </div>
+      <div class="riskcard">
+        <div class="rk">Недоверие артистов к организаторам шоу</div>
+        <div class="cs">отказ артистов от участия</div>
+      </div>
+      <div class="riskcard">
+        <div class="rk">Отказ СМИ в размещении информации о казино</div>
+        <div class="cs">снижение эффективности РК, сокращение охватов, отсутствие возможности формировать общественное
+          мнение</div>
+      </div>
+      <div class="riskcard">
+        <div class="rk">Форс-мажор на площадке казино во время выступления</div>
+        <div class="cs">тиражирования негатива в СМИ, закрытие проекта</div>
+      </div>
+      <div class="riskcard">
+        <div class="rk">Размещения незаконного контента, демонстрация запрещённых действий на сайте проекта со стороны
+          участников</div>
+        <div class="cs">репутационный провал, закрытие проекта</div>
+      </div>
+    </div>
+    <div class="riskgrid en">
+      <div class="riskcard">
+        <div class="rk">Audience distrust of the advertising campaign as a whole</div>
+        <div class="cs">Less efficient use of the advertising budget</div>
+      </div>
+      <div class="riskcard">
+        <div class="rk">Performers' distrust of the show organisers</div>
+        <div class="cs">Performers declining to participate</div>
+      </div>
+      <div class="riskcard">
+        <div class="rk">Media outlets refusing to publish information about the casino</div>
+        <div class="cs">Lower campaign effectiveness, reduced reach and no opportunity to shape public opinion</div>
+      </div>
+      <div class="riskcard">
+        <div class="rk">Unforeseen incidents at the casino during a performance</div>
+        <div class="cs">Negative media coverage and cancellation of the project</div>
+      </div>
+      <div class="riskcard">
+        <div class="rk">Participants posting illegal content or displaying prohibited activities on the project
+          website</div>
+        <div class="cs">Reputational damage and cancellation of the project</div>
+      </div>
+    </div>
+
+    <div class="wide-block ru">
+      <h2 class="sh">Решение:</h2>
+      <p class="tx">формирование общественного мнения через СМИ, личности членов жюри и первых участников проекта</p>
+      <div class="chips">
+        <div class="chip">Телевизионные новости на каналах с локальной врезкой</div>
+        <div class="chip">Новости на региональных Интернет порталах</div>
+        <div class="chip">Участие членов жюри в новостях и соцсетях проекта от первого лица</div>
+        <div class="chip">Цикл передач на региональном телевидении с участием первых претендентов на приз</div>
+      </div>
+      <p class="subtx" style="color: var(--card-text)">Для аудитории каждой площадки была сформирована новостная линейка и форма подачи</p>
+      <div class="note">Загрузку незаконного контента на сайт проекта исключили предварительноймодерацией оргкомитетом.
+      </div>
+      <h3 class="lbl">Разработанное техническое решение позволило:</h3>
+      <ul class="li">
+        <li>контролировать процесс выкладки контента,</li>
+        <li>вести учёт артистов по жанрам,</li>
+        <li>выделять наиболее интересных,</li>
+        <li>формировать сценарий первых выступлений.</li>
+      </ul>
+      <div class="note">Так же была реализована функция голосования посетителями сайта для приза зрительских симпатий.
+      </div>
+    </div>
+
+    <div class="wide-block en">
+      <h2 class="sh">The solution:</h2>
+      <p class="tx">Shape public opinion through media coverage, the profiles of the judges and the project's first
+        contestants.</p>
+      <div class="chips">
+        <div class="chip">TV news coverage on channels with local programming slots</div>
+        <div class="chip">News coverage on regional online news portals</div>
+        <div class="chip">First-person contributions from judges in news coverage and on the project's social media
+          channels</div>
+        <div class="chip">A series of regional TV programmes featuring the first contestants competing for the prize
+        </div>
+      </div>
+      <p class="subtx" style="color: var(--card-text)">A news agenda and content approach were tailored to each
+        platform's audience.</p>
+      <div class="note">Pre-publication moderation by the organising committee prevented illegal content from
+        appearing on the project website.</div>
+      <h3 class="lbl">The technical solution we developed made it possible to:</h3>
+      <ul class="li">
+        <li>Control the content publishing process,</li>
+        <li>Organise performer records by genre,</li>
+        <li>Identify the most promising acts,</li>
+        <li>Plan the running order for the first performances.</li>
+      </ul>
+      <div class="note">We also added a website voting feature for the Audience Choice Award.</div>
+    </div>
+
+    <div class="wide-block ru">
+      <p class="emph">Привлечение артистов на проект / Привлечение зрителей на проект</p>
+      <h2 class="sh">Две волны медийной кампании.</h2>
+      <p class="tx"><b>Первая волна</b> – привлечение артистов, формирование общественного мнения.</p>
+      <p class="tx"><b>Вторая волна</b> – привлечение зрителей на проект.</p>
+      <p class="subtx">Период активности с 27 мая по 15 августа 2016 года. Активность делилась на флайты в зависимости
+        от ситуации с заявками артистов и обратной связи аудитории.</p>
+    </div>
+
+    <div class="wide-block en">
+      <p class="emph">Recruiting performers / Attracting audiences</p>
+      <h2 class="sh">Two waves of the media campaign.</h2>
+      <p class="tx"><b>First wave</b> — recruiting performers and shaping public opinion.</p>
+      <p class="tx"><b>Second wave</b> — attracting audiences to the show.</p>
+      <p class="subtx">The campaign ran from 27 May to 15 August 2016. Activity was split into advertising flights,
+        adjusted according to performer applications and audience feedback.</p>
+    </div>
+
+    <figure class="fig wide ru"><img src="./картинки/casino-map.jpg" alt=""></figure>
+    <figure class="fig wide en"><img src="./картинки/casino-map-eng.png" alt=""></figure>
+
+    <figure class="fig wide"><img src="./картинки/7.jpg" alt=""></figure>
+
+    <div class="wide-block ru">
+      <h2 class="sh">Отработка юридических рисков проекта</h2>
+      <ul class="li list-plain">
+        <li><b class="num">1.</b> Переговоры с надзорными органами, оценка законодательной базы в рамках возможности
+          проведения развлекательного шоу на территории игорной зоны с привлечением аудитории из СМИ.</li>
+        <li><b class="num">2.</b> Разработка положения о конкурсе.</li>
+        <li><b class="num">3.</b> Разработка механики конкурсов, подготовка официальных документов.</li>
+        <li><b class="num">4.</b> Подготовка пакета документов для осуществления возможности проведения шоу на
+          территории казино.</li>
+        <li><b class="num">5.</b> Правила проведения шоу на площадке для всех задействованных лиц (участники,
+          оргкомитет, работники сцены, команда видеопродакшена, иные)</li>
+        <li><b class="num">6.</b> Договора с участниками шоу, включающие:
+          <ul>
+            <li>отчуждение исключительных авторских прав на все фото-, видеоматериалы с их участием на территории
+              казино;</li>
+            <li>собственную ответственность участников за своё здоровье во время демонстрации программы;</li>
+            <li>защиту информационной безопасности организатора в случае выяснения каких-либо не публичных сведений;
+            </li>
+            <li>самостоятельное урегулирование споров с авторами объектов интеллектуальной собственности,
+              использованной в шоу;</li>
+            <li>получение прав организатором на проведение рекламой кампании с использованием образа участника;</li>
+            <li>иные условия, связанные с реализацией проекта.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="wide-block en">
+      <h2 class="sh">Managing the project's legal risks</h2>
+      <ul class="li list-plain">
+        <li><b class="num">1.</b> Discussions with regulatory authorities and a review of the legal framework to
+          assess whether an entertainment show could be held within the gaming zone and promoted to audiences through
+          the media.</li>
+        <li><b class="num">2.</b> Drafting the competition regulations.</li>
+        <li><b class="num">3.</b> Developing the competition mechanics and preparing official documentation.</li>
+        <li><b class="num">4.</b> Preparing the documentation required to stage the show at the casino.</li>
+        <li><b class="num">5.</b> Establishing on-site rules for everyone involved in the show: contestants, the
+          organising committee, stage crew, the video production team and other personnel.</li>
+        <li><b class="num">6.</b> Preparing contestant agreements covering:
+          <ul>
+            <li>assignment of exclusive copyright in all photo and video materials featuring contestants on the
+              casino premises;</li>
+            <li>contestants' personal responsibility for their health during their performances;</li>
+            <li>protection of the organiser's confidential information should contestants gain access to any
+              non-public information;</li>
+            <li>contestants' responsibility for independently resolving disputes with the creators of intellectual
+              property used in the show;</li>
+            <li>granting the organiser the right to use contestants' likenesses in the advertising campaign;</li>
+            <li>other terms relating to the delivery of the project.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <figure class="fig wide">
+      <div class="slide-frame">
+        <div class="slide-text slide-text-full ru">
+          <h3 class="lbl">На первоначальной стадии переговоров СМИ отказывались брать в эфир информацию о казино, так
+            как были риски штрафов и предупреждений от ФАС.</h3>
+          <p class="tx">ФАС и представителям СМИ была предоставлена цепочка доводов, которые позволили провести PR
+            компанию:</p>
+          <ul class="li">
+            <li>информация о мероприятии не является рекламой и не попадает под закон «О рекламе»,</li>
+            <li>позиционируемый объект (шоу) не является структурой, относящейся к казино, соответственно сообщать в
+              СМИ о шоу можно,</li>
+            <li>все сценарии сюжетов, тексты новостей и фотографии были тщательно выверены и прошли модерацию ФАС,</li>
+          </ul>
+          <div class="note">мы так же добились права прямым текстом сообщать место проведения мероприятия (казино) и
+            упоминать название сайта.</div>
+        </div>
+        <div class="slide-text slide-text-full en">
+          <h3 class="lbl">At the start of negotiations, media outlets refused to broadcast information about the
+            casino because of the risk of fines and warnings from the Federal Antimonopoly Service (FAS).</h3>
+          <p class="tx">We presented FAS and media representatives with a set of arguments that enabled the PR
+            campaign to go ahead:</p>
+          <ul class="li">
+            <li>information about the event did not constitute advertising and therefore did not fall within the
+              scope of the Law on Advertising,</li>
+            <li>the show being promoted was not an entity affiliated with the casino, so media coverage of the show
+              was permissible,</li>
+            <li>all broadcast scripts, news copy and photographs were carefully checked and reviewed by FAS.</li>
+          </ul>
+          <div class="note">we also secured permission to explicitly identify the casino as the event venue and
+            mention the website address.</div>
+        </div>
+        <img src="./casino_case_media/9nopoints.png" alt="">
+      </div>
+    </figure>
+
+    <figure class="fig wide ru">
+      <div class="slide-frame">
+        <div class="slide-text slide-text-stats">
+          <h2 class="sh">Активность / Выполнение целей</h2>
+          <p class="tx">Охват всеми рекламными мероприятиями: <b class="num">527 000</b> устройств</p>
+          <p class="tx">Число контактов с одним человеком вне соц.сетей: <b class="num">5</b></p>
+          <p class="tx">Число контактов с одним человеком в соц.сетях: <b class="num">6</b></p>
+          <p class="tx">Число показов в видимой части экрана: <b class="num">1 500 000</b> показов</p>
+          <p class="tx">Просмотров на Ютубе от рекламы: <b class="num">101 000</b> показов</p>
+          <p class="tx">Имеют крепкую связь с брендом Кристал Бродвей и Тигре Де Кристал: <b class="num">17 250</b>
+            человек</p>
+        </div>
+        <img src="./casino_case_media/10.jpg" alt="">
+      </div>
+    </figure>
+
+    <figure class="fig wide en">
+      <div class="slide-frame">
+        <div class="slide-text slide-text-stats">
+          <h2 class="sh">Campaign activity / Objectives achieved</h2>
+          <p class="tx">Reach across all advertising activities: <b class="num">527,000</b> devices</p>
+          <p class="tx">Ad frequency per person outside social media: <b class="num">5</b></p>
+          <p class="tx">Ad frequency per person on social media: <b class="num">6</b></p>
+          <p class="tx">Viewable impressions: <b class="num">1,500,000</b></p>
+          <p class="tx">YouTube views generated by advertising: <b class="num">101,000</b></p>
+          <p class="tx">People with a strong connection to the Cristal Broadway and Tigre de Cristal brands: <b
+              class="num">17,250</b></p>
+        </div>
+        <img src="./картинки/10-eng.jpg" alt="">
+      </div>
+    </figure>
+
+    <figure class="fig wide ru">
+      <div class="slide-frame">
+        <div class="slide-text slide-text-pie">
+          <h2 class="sh">Сайт проекта, источник трафика, в&nbsp;%</h2>
+        </div>
+        <img src="./картинки/11.jpg" alt="">
+      </div>
+    </figure>
+
+    <figure class="fig wide en">
+      <div class="slide-frame">
+        <div class="slide-text slide-text-pie">
+          <h2 class="sh">Project website: traffic sources,&nbsp;%</h2>
+        </div>
+        <img src="./картинки/11-eng.jpg" alt="">
+      </div>
+    </figure>
+
+    <figure class="fig wide ru">
+      <div class="slide-frame">
+        <div class="slide-text slide-text-list">
+          <h2 class="sh">Активность / Выполнение целей</h2>
+          <ul class="li">
+            <li><b class="num">45</b> постов в новостных и творческих пабликах в VK, FB<sup>*</sup>, Instagram<sup>*</sup>, OK</li>
+            <li><b class="num">8</b> новостных интернет портала,</li>
+            <li><b class="num">5</b> интернет порталов для размещения баннерной рекламы</li>
+            <li><b class="num">5</b> социальных сетей (креативы, постинг, таргет, ведение)</li>
+            <li><b class="num">4</b> разных эмоциональных посыла в СМИ</li>
+            <li><b class="num">4</b> развлекательных телеканала</li>
+            <li><b class="num">3</b> новостных телеканала</li>
+            <li><b class="num">2</b> радиостанции</li>
+            <li><b class="num">1</b> команда Хаус Медиа</li>
+            <li>Контекстно медийная сеть Google</li>
+            <li>Рекламная сеть Яндекса</li>
+            <li>Сайт проекта с возможностью отправки заявок, просмотра видео, голосования,</li>
+            <li>доп. функций для оргкомитета.</li>
+          </ul>
+        </div>
+        <img src="./casino_case_media/12nopoints.png" alt="">
+      </div>
+    </figure>
+
+    <figure class="fig wide en">
+      <div class="slide-frame">
+        <div class="slide-text slide-text-list">
+          <h2 class="sh">Campaign activity / Objectives achieved</h2>
+          <ul class="li">
+            <li><b class="num">45</b> posts in news and creative community pages on VK, Facebook<sup>*</sup>, Instagram<sup>*</sup> and
+              Odnoklassniki</li>
+            <li><b class="num">8</b> online news portals</li>
+            <li><b class="num">5</b> web portals used for banner advertising</li>
+            <li><b class="num">5</b> social networks: creative development, posting, targeted advertising and account
+              management</li>
+            <li><b class="num">4</b> distinct emotional appeals across media coverage</li>
+            <li><b class="num">4</b> entertainment TV channels</li>
+            <li><b class="num">3</b> news TV channels</li>
+            <li><b class="num">2</b> radio stations</li>
+            <li><b class="num">1</b> House Media team</li>
+            <li>Google Display Network</li>
+            <li>Yandex Advertising Network</li>
+            <li>A project website with application submission, video viewing and voting functionality,</li>
+            <li>Additional features for the organising committee.</li>
+          </ul>
+        </div>
+        <img src="./casino_case_media/12nopoints-eng.png" alt="">
+      </div>
+    </figure>
+
+    <figure class="fig wide">
+      <div class="slide-frame">
+        <div class="slide-text slide-text-list ru">
+          <p class="tx">Перевыполнение плана на <b class="num">16%</b></p>
+          <p class="tx">Отобрано <b class="num">232</b> участника</p>
+          <p class="tx">Первую четверть финала шоу казино посетили:</p>
+          <ul class="li">
+            <li>более <b class="num">1000</b> человек, ранее не бывавших в игорной зоне</li>
+            <li><b class="num">800</b> человек, ранее посещавшие игорную зону</li>
+          </ul>
+          <p class="subtx">Медийная кампания обеспечила максимальную заполняемость казино все последующие этапы шоу
+            (четверть финалы, полуфиналы, финал)</p>
+          <p class="subtx">Все кто не попали на площадку, могли посмотреть шоу на Youtube, сайте проекта и
+            региональном телевидении.</p>
+          <p class="subtx">Данное шоу стало крупнейшим на территории ДВ в данном направлении.</p>
+        </div>
+        <div class="slide-text slide-text-list en">
+          <p class="tx">Target exceeded by <b class="num">16%</b></p>
+          <p class="tx"><b class="num">232</b> contestants selected</p>
+          <p class="tx">The show's first quarter-final brought the following audiences to the casino:</p>
+          <ul class="li">
+            <li>more than <b class="num">1,000</b> people who had never visited the gaming zone before</li>
+            <li><b class="num">800</b> people who had previously visited the gaming zone</li>
+          </ul>
+          <p class="subtx">The media campaign ensured that the casino was at full capacity for every subsequent stage
+            of the show: the quarter-finals, semi-finals and final.</p>
+          <p class="subtx">Those unable to attend in person could watch the show on YouTube, the project website and
+            regional television.</p>
+          <p class="subtx">The show became the largest event of its kind in the Russian Far East.</p>
+        </div>
+        <img src="./casino_case_media/13nopoints.png" alt="">
+      </div>
+    </figure>
+
+  </div>
+
+  <section class="contact" id="contact">
+    <div class="in">
+      <p class="ru">По вопросам сотрудничества обращайтесь к автору кейса, руководителю компании</p>
+      <p class="en">For collaboration enquiries, please contact the case study’s author and company head</p>
+      <div class="contact-row">
+        <a class="cbtn tg" href="https://t.me/MikTruef" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M9.8 15.6l-.4 4.2c.5 0 .8-.2 1.1-.5l2.6-2.4 5.4 3.9c1 .5 1.7.3 1.9-.9l3.5-16.3c.3-1.4-.5-2-1.5-1.6L1.2 9.4C-.1 9.9 0 10.7 1 11l5.5 1.7L20 4.2c.6-.4 1.2-.2.7.2z" />
+          </svg>
+          @MikTruef
+        </a>
+        <a class="cbtn" href="mailto:m.trufanov@hmedia.pro">m.trufanov@hmedia.pro</a>
+        <a class="cbtn wa" href="https://wa.me/79242340277" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.2.2-.3.4-.1.7.2.3.9 1.5 2 2.4 1.4 1.2 2.5 1.6 2.8 1.7.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.3.6.4.1.2.1.8-.1 1.5z" />
+          </svg>
+          +7 924 234 02 77
+        </a>
+        <a class="cbtn max" href="https://max.ru/u/f9LHodD0cOIjYq-bW_DKjBgMsAPnSGMA6B4l_44J5GDy4AVkhQdPqwYwMp8"
+          target="_blank" rel="noopener">
+          <svg viewBox="0 0 200 200">
+            <path fill-rule="evenodd"
+              d="M92.69,3.95 L105.26,3.57 L115.79,4.42 L125.66,6.41 L137.5,10.35 L149.34,16.27 L157.24,21.52 L166.45,29.34 L175.08,38.82 L182.4,49.34 L187.57,59.21 L192.29,71.71 L194.93,82.89 L196.22,94.08 L196.19,105.26 L194.29,119.08 L190.97,130.92 L187.13,140.13 L181.78,150 L177.2,156.58 L169.82,165.13 L161.84,172.48 L153.95,178.33 L146.05,183.12 L134.87,188.32 L125,191.56 L115.13,193.64 L103.95,194.56 L93.42,194.24 L84.87,192.9 L76.32,190.3 L68.42,186.29 L59.87,180.72 L51.32,187.58 L40.13,192.89 L30.26,194.78 L23.03,193.54 L20.26,191.45 L18.34,186.84 L17.91,177.63 L16.63,168.42 L7.68,130.92 L5.02,115.13 L4.38,102.63 L5.07,90.13 L7.07,78.29 L10.99,65.13 L16.31,53.29 L22.85,42.76 L31.58,32.35 L42.11,22.97 L54.61,14.98 L66.45,9.71 L80.26,5.77 Z M95.39,50.62 L88.16,51.8 L82.24,53.84 L76.32,56.97 L71.71,60.29 L66.45,65.38 L62.41,70.39 L58.47,76.97 L55.64,83.55 L53.71,90.13 L52.45,97.37 L51.77,105.92 L51.85,116.45 L53.11,128.29 L55.02,136.84 L57.72,144.08 L60.53,147.5 L62.5,147.74 L65.13,146.89 L75,139.27 L84.21,144.24 L94.08,146.95 L101.32,147.49 L107.24,147.01 L117.76,144.27 L127.63,139.08 L135.79,132.24 L142.9,123.03 L146.95,114.47 L149.48,102.63 L148.84,90.79 L145.02,78.95 L138.97,69.08 L130.92,61.04 L125,57.04 L119.74,54.43 L108.55,51.16 L101.97,50.47 Z" />
+          </svg>
+          +7 924 234 02 77
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="casenav" id="cases">
+    <div class="in">
+      <div class="row">
+        <a href="#">← <span class="ru">Предыдущий кейс</span><span class="en">Previous case</span></a>
+        <a href="#" class="all"><span class="ru">Все кейсы</span><span class="en">All cases</span></a>
+        <a href="#"><span class="ru">Следующий кейс</span><span class="en">Next case</span> →</a>
+      </div>
+      <span class="eyebrow"><span class="ru">Смотрите также</span><span class="en">See also</span></span>
+      <h2><span class="ru">Другие кейсы</span><span class="en">Other cases</span></h2>
+      <div class="others">
+        <a class="ocard" href="#">
+          <div class="oimg"><span class="ru">превью</span><span class="en">preview</span></div>
+          <div class="obody">
+            <span class="otag"><span class="ru">[Категория]</span><span class="en">[Category]</span></span>
+            <h4><span class="ru">[Название кейса]</span><span class="en">[Case title]</span></h4>
+            <p><span class="ru">[Одна строка результата.]</span><span class="en">[One-line result.]</span></p>
+          </div>
+        </a>
+        <a class="ocard" href="#">
+          <div class="oimg"><span class="ru">превью</span><span class="en">preview</span></div>
+          <div class="obody">
+            <span class="otag"><span class="ru">[Категория]</span><span class="en">[Category]</span></span>
+            <h4><span class="ru">[Название кейса]</span><span class="en">[Case title]</span></h4>
+            <p><span class="ru">[Одна строка результата.]</span><span class="en">[One-line result.]</span></p>
+          </div>
+        </a>
+        <a class="ocard" href="#">
+          <div class="oimg"><span class="ru">превью</span><span class="en">preview</span></div>
+          <div class="obody">
+            <span class="otag"><span class="ru">[Категория]</span><span class="en">[Category]</span></span>
+            <h4><span class="ru">[Название кейса]</span><span class="en">[Case title]</span></h4>
+            <p><span class="ru">[Одна строка результата.]</span><span class="en">[One-line result.]</span></p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap">
+      <span class="copy">© <span class="ru">Михаил Труфанов · маркетолог и PR-директор.</span><span class="en">Mikhail
+          Trufanov · marketing &amp; PR director.</span> HOUSE MEDIA · YOKEEOPT</span>
+      <span class="mono">+7 924 234 02 77 · m.trufanov@hmedia.pro</span>
+    </div>
+  </footer>
+
+  <script>
+    var html = document.documentElement;
+    document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var l = b.getAttribute('data-set-lang');
+        html.setAttribute('data-lang', l); html.setAttribute('lang', l);
+        document.querySelectorAll('[data-set-lang]').forEach(function (x) { x.classList.toggle('active', x === b) });
+      });
+    });
+  </script>
+<script id="mobile-layout-js">
+    (function () {
+      var header = document.querySelector('header');
+      var burger = header && header.querySelector('.burger');
+      var menu = header && header.querySelector('.menu');
+      function setOpen(open) {
+        header.classList.toggle('menu-open', open);
+        burger.setAttribute('aria-expanded', String(open));
+      }
+      if (burger && menu) {
+        burger.addEventListener('click', function () { setOpen(!header.classList.contains('menu-open')); });
+        menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+        document.addEventListener('click', function (e) { if (!header.contains(e.target)) setOpen(false); });
+        window.addEventListener('resize', function () { if (window.innerWidth > 900) setOpen(false); });
+      }
+      var brand = header && header.querySelector('.brand');
+      if (brand && brand.getAttribute('href') === '#top') {
+        brand.addEventListener('click', function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+      }
+    })();
+  </script>
+</body>
+
+</html>
