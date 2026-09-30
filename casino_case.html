@@ -779,7 +779,122 @@
       font-size: 13px
     }
 
+    /* social results block (mobile replacement for slide 10) */
+    .mobile-only {
+      display: none
+    }
+
+    .social-stats {
+      max-width: 1080px;
+      margin: 34px auto 0
+    }
+
+    .social-stats .ss-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 28px 24px
+    }
+
+    .social-stats .ss-col {
+      --ss: #b2aea8;
+      min-width: 0
+    }
+
+    .social-stats .ss-col::before {
+      content: "";
+      display: block;
+      width: 106px;
+      max-width: 100%;
+      height: 5px;
+      margin-bottom: 12px;
+      background: var(--ss)
+    }
+
+    .social-stats h3 {
+      margin: 0 0 10px;
+      font-family: var(--font);
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--ss);
+      overflow-wrap: break-word
+    }
+
+    .social-stats h3 sup {
+      font-size: .65em;
+      line-height: 0
+    }
+
+    .social-stats ul {
+      margin: 0;
+      padding: 0;
+      list-style: none
+    }
+
+    .social-stats li {
+      margin: 0 0 6px;
+      font-size: 15px;
+      line-height: 1.45;
+      color: #b2aea8
+    }
+
+    .social-stats .ss-vk {
+      --ss: #008ce1
+    }
+
+    .social-stats .ss-ok {
+      --ss: #ff851c
+    }
+
+    .social-stats .ss-fb {
+      --ss: #005bff
+    }
+
+    .social-stats .ss-ig {
+      --ss: linear-gradient(90deg, #525bc1, #e834b0, #ff4e40, #ffbb43)
+    }
+
+    .social-stats .ss-ig h3 {
+      display: inline-block;
+      background: var(--ss);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent
+    }
+
+    .social-stats .ss-yt {
+      --ss: #ff1528
+    }
+
+    .social-stats .ss-note {
+      margin-top: 22px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #b2aea8
+    }
+
+    @media(max-width: 1000px) {
+      .social-stats .ss-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr))
+      }
+    }
+
+    @media(max-width: 480px) {
+      .social-stats .ss-grid {
+        gap: 24px 14px
+      }
+
+      .social-stats h3 {
+        font-size: 17px
+      }
+    }
+
     @media(max-width: 760px) {
+      .mobile-only {
+        display: block
+      }
+
       .others {
         grid-template-columns: 1fr
       }
@@ -788,6 +903,27 @@
         position: static;
         width: auto;
         margin-bottom: 20px
+      }
+
+      .slide-frame img.desktop-only {
+        display: none
+      }
+
+      .slide-frame .slide-text.slide-text-full,
+      .slide-frame .slide-text.slide-text-stats,
+      .slide-frame .slide-text.slide-text-pie,
+      .slide-frame .slide-text.slide-text-list {
+        width: auto;
+        height: auto
+      }
+
+      .slide-frame .slide-text.slide-text-list h2.sh {
+        font-size: clamp(24px, 3vw, 34px)
+      }
+
+      .slide-frame .slide-text.slide-text-list ul.li>li {
+        font-size: 15px;
+        padding: 9px 0 9px 28px
       }
 
       .slide-frame .slide-text h3.lbl,
@@ -1199,7 +1335,10 @@ header .nav,header.header .wrap{gap:16px}
             <li>Raise awareness of Tigre de Cristal.</li>
           </ul>
         </div>
-        <img src="./casino_case_media/2nopoints.png" alt="">
+        <picture>
+          <source media="(max-width: 760px)" srcset="./картинки/2mobile.webp" type="image/webp">
+          <img src="./casino_case_media/2nopoints.png" alt="">
+        </picture>
       </div>
     </figure>
 
@@ -1223,7 +1362,7 @@ header .nav,header.header .wrap{gap:16px}
             <li>Anticipate and prevent legal risks throughout the project</li>
           </ul>
         </div>
-        <img src="./casino_case_media/3nopoints.png" alt="">
+        <img class="desktop-only" src="./casino_case_media/3nopoints.png" alt="">
       </div>
     </figure>
 
@@ -1434,7 +1573,10 @@ header .nav,header.header .wrap{gap:16px}
           <div class="note">we also secured permission to explicitly identify the casino as the event venue and
             mention the website address.</div>
         </div>
-        <img src="./casino_case_media/9nopoints.png" alt="">
+        <picture>
+          <source media="(max-width: 760px)" srcset="./картинки/9mobile.webp" type="image/webp">
+          <img src="./casino_case_media/9nopoints.png" alt="">
+        </picture>
       </div>
     </figure>
 
@@ -1450,7 +1592,7 @@ header .nav,header.header .wrap{gap:16px}
           <p class="tx">Имеют крепкую связь с брендом Кристал Бродвей и Тигре Де Кристал: <b class="num">17 250</b>
             человек</p>
         </div>
-        <img src="./casino_case_media/10.jpg" alt="">
+        <img class="desktop-only" src="./casino_case_media/10.jpg" alt="">
       </div>
     </figure>
 
@@ -1466,16 +1608,147 @@ header .nav,header.header .wrap{gap:16px}
           <p class="tx">People with a strong connection to the Cristal Broadway and Tigre de Cristal brands: <b
               class="num">17,250</b></p>
         </div>
-        <img src="./картинки/10-eng.jpg" alt="">
+        <img class="desktop-only" src="./картинки/10-eng.jpg" alt="">
       </div>
     </figure>
+
+    <section class="social-stats mobile-only ru" aria-label="Результаты в соцсетях">
+      <div class="ss-grid">
+        <div class="ss-col ss-vk">
+          <h3>ВКонтакте</h3>
+          <ul>
+            <li>Охват: 25 000 человек</li>
+            <li>Показы: 203 942</li>
+            <li>2 249 лайков</li>
+            <li>231 репост</li>
+            <li>147 комментариев</li>
+            <li>ER дневной 6,46%</li>
+            <li>ER на пост 2,26%</li>
+          </ul>
+        </div>
+        <div class="ss-col ss-ok">
+          <h3>Одноклассники</h3>
+          <ul>
+            <li>Охват: 162 000 человек</li>
+            <li>Показы: 852 024</li>
+            <li>253 лайка</li>
+            <li>4 репост</li>
+            <li>15 комментариев</li>
+            <li>ER дневной 2,36%</li>
+            <li>ER на пост 0,13%</li>
+          </ul>
+        </div>
+        <div class="ss-col ss-fb">
+          <h3>Facebook<sup>*</sup></h3>
+          <ul>
+            <li>Охват: 121 000 человек</li>
+            <li>Показы: 500 000</li>
+            <li>633 лайка</li>
+            <li>59 репостов</li>
+            <li>21 комментарий</li>
+            <li>ER дневной 2,44%</li>
+            <li>ER на пост 1,02%</li>
+          </ul>
+        </div>
+        <div class="ss-col ss-ig">
+          <h3>Instagram<sup>*</sup></h3>
+          <ul>
+            <li>Охват: 160 000 человек</li>
+            <li>Показов: 885 000</li>
+            <li>13 533 лайка</li>
+            <li>420 комментариев</li>
+            <li>ER дневной 11,109%</li>
+            <li>ER на пост 4,133%</li>
+          </ul>
+        </div>
+        <div class="ss-col ss-yt">
+          <h3>YouTube</h3>
+          <ul>
+            <li>Просмотров видео: 69 000</li>
+            <li>Лайков/дизлайков: 421/73</li>
+            <li>Комментариев: 21</li>
+            <li>ER дневной 6,09%</li>
+            <li>ER на пост 1,63%</li>
+            <li>Среднее время просмотра ролика: 2 минуты. 50% просмотров приходится на просмотры на сайте Шоу.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="ss-note">*деятельность социальной сети на территории России запрещена, соцсеть принадлежит компании Meta, признана в РФ экстремистской организацией.</p>
+    </section>
+
+    <section class="social-stats mobile-only en" aria-label="Social media results">
+      <div class="ss-grid">
+        <div class="ss-col ss-vk">
+          <h3>VKontakte</h3>
+          <ul>
+            <li>Reach: 25 000 people</li>
+            <li>Views: 203 942</li>
+            <li>2 249 likes</li>
+            <li>231 reposts</li>
+            <li>147 comments</li>
+            <li>ER/day 6,46%</li>
+            <li>ER/post 2,26%</li>
+          </ul>
+        </div>
+        <div class="ss-col ss-ok">
+          <h3>Odnoklassniki</h3>
+          <ul>
+            <li>Reach: 162 000 people</li>
+            <li>Views: 852 024</li>
+            <li>253 likes</li>
+            <li>4 reposts</li>
+            <li>15 comments</li>
+            <li>ER/day 2,36%</li>
+            <li>ER/post 0,13%</li>
+          </ul>
+        </div>
+        <div class="ss-col ss-fb">
+          <h3>Facebook<sup>*</sup></h3>
+          <ul>
+            <li>Reach: 121 000 people</li>
+            <li>Views: 500 000</li>
+            <li>633 likes</li>
+            <li>59 reposts</li>
+            <li>21 comments</li>
+            <li>ER/day 2,44%</li>
+            <li>ER/post 1,02%</li>
+          </ul>
+        </div>
+        <div class="ss-col ss-ig">
+          <h3>Instagram<sup>*</sup></h3>
+          <ul>
+            <li>Reach: 160 000 people</li>
+            <li>Views: 885 000</li>
+            <li>13 533 likes</li>
+            <li>420 comments</li>
+            <li>ER/day 11,109%</li>
+            <li>ER/post 4,133%</li>
+          </ul>
+        </div>
+        <div class="ss-col ss-yt">
+          <h3>YouTube</h3>
+          <ul>
+            <li>Views: 69 000</li>
+            <li>Likes/dislikes: 421/73</li>
+            <li>Comments: 21</li>
+            <li>ER/day 6,09%</li>
+            <li>ER/post 1,63%</li>
+            <li>Average time of watching the video: 2 minutes. 50% of views are on the site of the show.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="ss-note">*The activities of this social network are prohibited in Russia. The social network is owned by Meta, which has been designated an extremist organization in the Russian Federation.</p>
+    </section>
 
     <figure class="fig wide ru">
       <div class="slide-frame">
         <div class="slide-text slide-text-pie">
           <h2 class="sh">Сайт проекта, источник трафика, в&nbsp;%</h2>
         </div>
-        <img src="./картинки/11.jpg" alt="">
+        <picture>
+          <source media="(max-width: 760px)" srcset="./картинки/11mobrus.webp" type="image/webp">
+          <img src="./картинки/11.jpg" alt="">
+        </picture>
       </div>
     </figure>
 
@@ -1484,7 +1757,10 @@ header .nav,header.header .wrap{gap:16px}
         <div class="slide-text slide-text-pie">
           <h2 class="sh">Project website: traffic sources,&nbsp;%</h2>
         </div>
-        <img src="./картинки/11-eng.jpg" alt="">
+        <picture>
+          <source media="(max-width: 760px)" srcset="./картинки/11moben.webp" type="image/webp">
+          <img src="./картинки/11-eng.jpg" alt="">
+        </picture>
       </div>
     </figure>
 
@@ -1508,7 +1784,10 @@ header .nav,header.header .wrap{gap:16px}
             <li>доп. функций для оргкомитета.</li>
           </ul>
         </div>
-        <img src="./casino_case_media/12nopoints.png" alt="">
+        <picture>
+          <source media="(max-width: 760px)" srcset="./картинки/12nopointsmobile.webp" type="image/webp">
+          <img src="./casino_case_media/12nopoints.png" alt="">
+        </picture>
       </div>
     </figure>
 
@@ -1534,7 +1813,10 @@ header .nav,header.header .wrap{gap:16px}
             <li>Additional features for the organising committee.</li>
           </ul>
         </div>
-        <img src="./casino_case_media/12nopoints-eng.png" alt="">
+        <picture>
+          <source media="(max-width: 760px)" srcset="./картинки/12nopointsmobile.webp" type="image/webp">
+          <img src="./casino_case_media/12nopoints-eng.png" alt="">
+        </picture>
       </div>
     </figure>
 
@@ -1568,7 +1850,10 @@ header .nav,header.header .wrap{gap:16px}
             regional television.</p>
           <p class="subtx">The show became the largest event of its kind in the Russian Far East.</p>
         </div>
-        <img src="./casino_case_media/13nopoints.png" alt="">
+        <picture>
+          <source media="(max-width: 760px)" srcset="./картинки/13nopointsmobile.webp" type="image/webp">
+          <img src="./casino_case_media/13nopoints.png" alt="">
+        </picture>
       </div>
     </figure>
 
