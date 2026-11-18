@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Разработка сайтов — цены и условия · Михаил Труфанов</title>
   <meta name="description"
-    content="Разработка сайтов HOUSE MEDIA: лендинг — 89 000 ₽, корпоративный сайт — 179 000 ₽, интернет-магазин — от 289 000 ₽. Состав работ, сроки и условия.">
+    content="Разработка сайтов: лендинг — 89 000 ₽, корпоративный сайт — 179 000 ₽, интернет-магазин — от 289 000 ₽. Состав работ, сроки и условия.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -1752,7 +1752,7 @@
       }
     }
   </style>
-<style id="mobile-layout">
+  <style id="mobile-layout">
     /* Mobile: content never wider than the header, burger menu. */
     header .burger {
       display: none;
@@ -1876,6 +1876,218 @@
       }
     }
   </style>
+
+  <style>
+    /* 1C add-on for the 1C-Bitrix store: hero index sub-row, ladder in card 04, FAQ link */
+    .index-addon {
+      display: grid;
+      grid-template-columns: 1fr auto 14px;
+      gap: 16px;
+      align-items: center;
+      padding: 11px 0 4px 14px;
+      border-top: 1px dashed var(--line);
+      font-size: 11px;
+      color: var(--subtle);
+      transition: color .2s
+    }
+
+    .index-addon b {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: #d9dce1;
+      white-space: nowrap;
+      transition: color .2s
+    }
+
+    .index-addon>span:last-child {
+      color: var(--amber)
+    }
+
+    .index-addon:hover,
+    .index-addon:hover b {
+      color: var(--amber)
+    }
+
+    .addon-1c {
+      border-top: 1px solid var(--line);
+      padding: 24px 32px 26px 89px;
+      background: linear-gradient(180deg, rgba(230, 162, 60, .035), transparent 70%)
+    }
+
+    .addon-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 6px 24px;
+      margin-bottom: 16px
+    }
+
+    .addon-head .eyebrow {
+      margin: 0
+    }
+
+    .addon-lead {
+      font-size: 12px;
+      color: var(--subtle);
+      line-height: 1.7
+    }
+
+    .ladder-1c {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px
+    }
+
+    .step-1c {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 15px 16px 17px;
+      display: flex;
+      flex-direction: column
+    }
+
+    .step-meter {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      margin-bottom: 14px
+    }
+
+    .step-meter i {
+      height: 3px;
+      border-radius: 2px;
+      background: var(--grey)
+    }
+
+    .step-meter i.on {
+      background: var(--amber)
+    }
+
+    .step-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg);
+      line-height: 1.35
+    }
+
+    .step-hours {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--subtle);
+      letter-spacing: .04em;
+      margin-top: 5px
+    }
+
+    .step-price {
+      font: 500 20px/1.25 var(--font-display);
+      letter-spacing: -.01em;
+      color: var(--fg);
+      margin-top: 12px
+    }
+
+    .step-price span {
+      color: var(--amber)
+    }
+
+    .step-desc {
+      font-size: 12px;
+      color: var(--subtle);
+      line-height: 1.7;
+      margin-top: 8px
+    }
+
+    .addon-note {
+      font-size: 11px;
+      color: var(--subtle);
+      line-height: 1.7;
+      margin-top: 14px
+    }
+
+    .detail-group-wide {
+      grid-column: 1/-1
+    }
+
+    .detail-group-wide .feature-list b {
+      color: #d9dce1;
+      font-weight: 600
+    }
+
+    .faq-link {
+      color: var(--amber);
+      text-decoration: underline;
+      text-underline-offset: 3px
+    }
+
+    @media(max-width:1100px) {
+      .addon-1c {
+        padding-left: 76px
+      }
+
+      .ladder-1c {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .index-addon {
+        gap: 10px
+      }
+    }
+
+    @media(max-width:800px) {
+      .addon-1c {
+        padding: 22px 25px 24px
+      }
+
+      .index-addon {
+        grid-template-columns: 1fr auto;
+        margin-left: calc(50% + 15px)
+      }
+
+      .index-addon>span:last-child {
+        display: none
+      }
+    }
+
+    @media(max-width:520px) {
+      .addon-1c {
+        padding: 20px 18px 22px
+      }
+
+      .ladder-1c {
+        grid-template-columns: 1fr
+      }
+
+      .index-addon {
+        margin-left: 0;
+        grid-template-columns: 1fr auto 12px;
+        padding: 10px 0 2px 12px
+      }
+
+      .index-addon>span:last-child {
+        display: block
+      }
+
+      .step-price {
+        font-size: 19px
+      }
+    }
+
+    @media print {
+      .addon-1c {
+        background: none
+      }
+
+      .step-1c {
+        background: none;
+        border-color: #ccc
+      }
+    }
+  </style>
 </head>
 
 <body id="top"><a class="skip" href="#main"><span class="ru">К содержанию</span><span class="en">Skip to
@@ -1907,7 +2119,8 @@
         <a class="btn btn-fill" href="#contact"><span class="ru">Обсудить проект</span><span class="en">Let’s
             talk</span></a>
       </div>
-    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="site-menu"><span></span><span></span><span></span></button>
+      <button class="burger" type="button" aria-label="Меню" aria-expanded="false"
+        aria-controls="site-menu"><span></span><span></span><span></span></button>
     </div>
   </header>
   <main id="main">
@@ -1917,7 +2130,7 @@
             class="en">Website development</span></span></nav>
       <section class="hero">
         <div class="hero-copy">
-          <p class="eyebrow">HOUSE MEDIA <span class="eyebrow-line"></span> <span class="ru">РАЗРАБОТКА
+          <p class="eyebrow"><span class="ru">РАЗРАБОТКА
               САЙТОВ</span><span class="en">WEBSITE DEVELOPMENT</span></p>
           <h1><span class="ru">ВАШ БИЗНЕС.<br><span class="amber">ВАШ САЙТ.</span></span><span class="en">YOUR
               BUSINESS.<br><span class="amber">YOUR WEBSITE.</span></span></h1>
@@ -1940,6 +2153,9 @@
                   WooCommerce</span></span><b>289&nbsp;000 ₽</b><span aria-hidden="true">↘</span></a><a
               href="#bitrix"><span><span class="ru">Магазин · 1С-Битрикс</span><span class="en">Store ·
                   1C-Bitrix</span></span><b>339&nbsp;000 ₽</b><span aria-hidden="true">↘</span></a></div>
+          <a class="index-addon" href="#bitrix-1c"><span><span class="ru">+ интеграция с 1С</span><span class="en">+ 1C
+                integration</span></span><b><span class="ru">от</span><span class="en">from</span>&nbsp;25&nbsp;200
+              ₽</b><span aria-hidden="true">↘</span></a>
           <p class="index-note"><span class="ru">Индивидуальный дизайн в каждом формате.<br>Для 1С-Битрикс лицензия
               оплачивается отдельно.</span><span class="en">Custom design in every package.<br>1C-Bitrix licence is paid
               separately.</span></p>
@@ -1965,8 +2181,10 @@
               <p class="eyebrow"><span class="ru">ОДИН ПРОДУКТ · ОДНА ЦЕЛЬ</span><span class="en">ONE PRODUCT · ONE
                   GOAL</span></p>
               <h3><span class="ru">Лендинг</span><span class="en">Landing page</span></h3>
-              <p class="offer-copy"><span class="ru">Для запуска продукта, одной услуги, акции, вебинара или проверки
-                  новой ниши.</span><span class="en">For a product launch, a single service, promotion, webinar or
+              <p class="offer-copy"><span class="ru">Для запуска продукта, одной услуги или бизнеса с небольшим
+                  количеством услуг/товаров, акции, вебинара или проверки
+                  новой ниши.</span><span class="en">For a product launch, a single service, or or a business with a
+                  limited range of services/products, promotion, webinar or
                   testing a new niche.</span></p>
               <div class="facts"><span><span class="ru">До 8 смысловых блоков</span><span class="en">Up to 8 content
                     sections</span></span><span>15–30 <span class="ru">рабочих дней</span><span class="en">working
@@ -2229,6 +2447,65 @@
                   aria-hidden="true">↗</span></a>
             </div>
           </div>
+          <section class="addon-1c" id="bitrix-1c" aria-label="Автоматизация с 1С / 1C automation">
+            <div class="addon-head">
+              <p class="eyebrow"><span class="ru">АВТОМАТИЗАЦИЯ С 1С — ПО ЗАПРОСУ</span><span class="en">1C AUTOMATION —
+                  ON
+                  REQUEST</span></p>
+              <p class="addon-lead"><span class="ru">Дополнительно к магазину. Каждый следующий уровень включает всё из
+                  предыдущего.</span><span class="en">Optional add-on to the store. Each level includes everything from
+                  the previous one.</span></p>
+            </div>
+            <ol class="ladder-1c">
+              <li class="step-1c">
+                <span class="step-meter" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>
+                <span class="step-name"><span class="ru">Быстрый старт</span><span class="en">Quick start</span></span>
+                <span class="step-hours">8–16 <span class="ru">ч</span><span class="en">h</span></span>
+                <span class="step-price">25&nbsp;200 – 50&nbsp;400 <span>₽</span></span>
+                <span class="step-desc"><span class="ru">Базовая настройка 1С без обмена с
+                    интернет-магазином</span><span class="en">Basic 1C setup without exchange with the online
+                    store</span></span>
+              </li>
+              <li class="step-1c">
+                <span class="step-meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i><i></i></span>
+                <span class="step-name"><span class="ru">Простая интеграция</span><span class="en">Basic
+                    integration</span></span>
+                <span class="step-hours">40–80 <span class="ru">ч</span><span class="en">h</span></span>
+                <span class="step-price">126&nbsp;000 – 252&nbsp;000 <span>₽</span></span>
+                <span class="step-desc"><span class="ru">Обмен товарами, ценами, остатками и заказами*</span><span
+                    class="en">Exchange of products, prices, stock and orders*</span></span>
+              </li>
+              <li class="step-1c">
+                <span class="step-meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i
+                    class="on"></i><i></i></span>
+                <span class="step-name"><span class="ru">Средняя сложность</span><span class="en">Medium
+                    complexity</span></span>
+                <span class="step-hours">80–120 <span class="ru">ч</span><span class="en">h</span></span>
+                <span class="step-price">252&nbsp;000 – 378&nbsp;000 <span>₽</span></span>
+                <span class="step-desc"><span class="ru">+ несколько типов цен и складов, несложные B2B-сценарии,
+                    резервирование*</span><span class="en">+ multiple price types and warehouses, simple B2B scenarios,
+                    reservations*</span></span>
+              </li>
+              <li class="step-1c">
+                <span class="step-meter" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i><i
+                    class="on"></i></span>
+                <span class="step-name"><span class="ru">Сложная B2B-интеграция</span><span class="en">Complex B2B
+                    integration</span></span>
+                <span class="step-hours">150–200 <span class="ru">ч</span><span class="en">h</span></span>
+                <span class="step-price">472&nbsp;500 – 630&nbsp;000 <span>₽</span></span>
+                <span class="step-desc"><span class="ru">+ нестандартная логика: производство под заказ, персональные
+                    цены для дилеров, ордерное хранение и ТСД</span><span class="en">+ custom logic: made-to-order
+                    production, personal dealer pricing, order-based warehousing and data collection
+                    terminals</span></span>
+              </li>
+            </ol>
+            <p class="addon-note"><span class="ru">* Для простой интеграции и средней сложности дополнительно
+                обсуждается:
+                ордерное хранение, терминалы сбора данных (ТСД) и прочая автоматизация.</span><span class="en">* For
+                basic
+                and medium-complexity integration, order-based warehousing, data collection terminals and other
+                automation can be discussed additionally.</span></p>
+          </section>
           <details class="offer-details">
             <summary><span class="ru">Состав работ и все условия</span><span class="en">Scope of work and full
                 details</span><span class="plus" aria-hidden="true">+</span></summary>
@@ -2289,11 +2566,43 @@
                         Schema.org structured data.</span></li>
                   </ul>
                 </div>
+                <div class="detail-group detail-group-wide">
+                  <h4><span class="ru">Интеграция с 1С: что входит в каждый уровень</span><span class="en">1C
+                      integration:
+                      what each level includes</span></h4>
+                  <ul class="feature-list">
+                    <li><span class="ru"><b>Быстрый старт.</b> Базовая настройка 1С без обмена с
+                        интернет-магазином.</span><span class="en"><b>Quick start.</b> Basic 1C setup without exchange
+                        with the online store.</span></li>
+                    <li><span class="ru"><b>Простая интеграция.</b> Базовая настройка типового обмена с
+                        интернет-магазином
+                        (товары, цены, остатки, заказы) для небольшого магазина с простой структурой
+                        каталога.</span><span class="en"><b>Basic integration.</b> Standard exchange setup with the
+                        online
+                        store (products, prices, stock, orders) for a small store with a simple catalogue
+                        structure.</span></li>
+                    <li><span class="ru"><b>Средняя сложность.</b> Всё, что в простой интеграции, + настройка нескольких
+                        типов цен, нескольких складов, несложных B2B-сценариев или правил
+                        резервирования.</span><span class="en"><b>Medium complexity.</b> Everything in Basic
+                        integration,
+                        plus multiple price types, multiple warehouses, simple B2B scenarios or reservation
+                        rules.</span></li>
+                    <li><span class="ru"><b>Сложная B2B-интеграция.</b> Всё, что в «Средней сложности», + настройка
+                        проектов с нестандартной логикой: производство под заказ, сложные сценарии резервирования,
+                        персональные цены для дилеров, настройка ордерного хранения, терминалов сбора данных и прочих
+                        элементов автоматизации.</span><span class="en"><b>Complex B2B integration.</b> Everything in
+                        Medium complexity, plus projects with custom logic: made-to-order production, complex
+                        reservation scenarios, personal dealer pricing, order-based warehousing, data collection
+                        terminals and other automation.</span></li>
+                  </ul>
+                </div>
                 <p class="detail-note"><span class="ru">Лицензия «1С-Битрикс: Управление сайтом» оплачивается отдельно и
-                    передаётся вам после завершения работ. Подбирается под задачи и функционал. Диапазон в прайсе: 7
-                    100–96 500 ₽.</span><span class="en">The 1C-Bitrix: Site Management licence is paid separately and
+                    передаётся вам после завершения работ. Подбирается под задачи и функционал. Лицензии: 25
+                    100–96 500 ₽. Лицензии "1С" оплачиваются отдельно. Консультируем, помогаем купить и
+                    настроить.</span><span class="en">The 1C-Bitrix: Site Management licence is paid separately and
                     transferred to you after completion. The edition depends on your needs and features. Price-list
-                    range: RUB 7,100–96,500.</span></p>
+                    range: RUB 25,100–96,500. "1C" licenses are paid for separately. We provide consultations and assist
+                    with the purchase and setup.</span></p>
               </div>
               <p class="detail-bottom"><span class="ru">Также включён первый месяц поддержки: исправление багов и мелкие
                   правки текстов.</span><span class="en">Also includes one month of support: bug fixes and minor text
@@ -2302,9 +2611,8 @@
             </div>
           </details>
         </article>
-        <p class="catalog-footnote"><span class="ru">Цены и состав работ — по прайсу HOUSE MEDIA 2026. Сроки указаны в
-            рабочих днях. Итоговую задачу и условия согласуем перед началом работ.</span><span class="en">Prices and
-            scope follow the HOUSE MEDIA 2026 price list. Timelines are in working days. The final brief and terms are
+        <p class="catalog-footnote"><span class="ru">Сроки указаны в
+            рабочих днях. Итоговую задачу и условия согласуем перед началом работ.</span><span class="en">Timelines are in working days. The final brief and terms are
             agreed before work starts.</span></p>
       </section>
 
@@ -2325,8 +2633,8 @@
           <p><span class="ru">Разработка — это часть бюджета. Здесь материалы, которые понадобятся от вас, и отдельные
               расходы.</span><span class="en">Development is one part of the budget. Here are the materials you supply
               and the additional costs to plan for.</span></p>
-          <div class="hosting-note"><span class="mono"><span class="ru">ХОСТИНГ У НАС</span><span class="en">OUR
-                HOSTING</span></span><b>3 500 ₽ <small>/ <span class="ru">год</span><span
+          <div class="hosting-note"><span class="mono"><span class="ru">ХОСТИНГ У НАС ОТ</span><span class="en">OUR
+                HOSTING START AT</span></span><b>3 500 ₽ <small>/ <span class="ru">год</span><span
                   class="en">year</span></small></b><span><span class="ru">По желанию. Домен оплачивается
                 отдельно.</span><span class="en">Optional. The domain is paid separately.</span></span></div>
         </div>
@@ -2365,13 +2673,13 @@
                 available for RUB 3,500 per year.</span></p>
           </details>
           <details class="faq-item">
-            <summary><span class="ru">Лицензия 1С-Битрикс</span><span class="en">1C-Bitrix licence</span><span
+            <summary><span class="ru">Лицензия 1С-Битрикс и 1С</span><span class="en">1C-Bitrix licence & 1C</span><span
                 class="plus" aria-hidden="true">+</span></summary>
             <p><span class="ru">Для магазина на 1С-Битрикс лицензия «Управление сайтом» оплачивается отдельно. Подбираем
-                её под задачи и функционал, после завершения работ передаём заказчику. В прайсе указан диапазон 7 100–96
+                её под задачи и функционал, после завершения работ передаём заказчику. Лицензии 25 000–96
                 500 ₽.</span><span class="en">For a 1C-Bitrix store, the Site Management licence is paid separately. We
                 select it to suit the required features and transfer it to you on completion. The price-list range is
-                RUB 7,100–96,500.</span></p>
+                RUB 25,100–96,500.</span></p>
           </details>
         </div>
       </section>
@@ -2409,9 +2717,13 @@
                 differ?</span><span class="plus" aria-hidden="true">+</span></summary>
             <p><span class="ru">Базовый функциональный набор в прайсе одинаковый. Различаются платформа и цена:
                 WordPress / WooCommerce — 289 000 ₽, 1С-Битрикс — 339 000 ₽ плюс лицензия. Для Битрикс предусмотрена
-                подготовка к обмену с 1С.</span><span class="en">The price list specifies the same core feature set. The
+                подготовка к обмену с 1С. Саму настройку обмена с 1С можно добавить отдельно: четыре уровня, от
+                25&nbsp;200 ₽ — <a class="faq-link" href="#bitrix-1c">подробнее в карточке магазина ↗</a></span><span
+                class="en">The price list specifies the same core feature set. The
                 platform and cost differ: WordPress / WooCommerce costs RUB 289,000; 1C-Bitrix costs RUB 339,000 plus a
-                licence. Preparation for 1C exchange is available for Bitrix.</span></p>
+                licence. Preparation for 1C exchange is available for Bitrix. The 1C exchange setup itself can be added
+                separately: four levels, from RUB 25,200 — <a class="faq-link" href="#bitrix-1c">see the store card
+                  ↗</a></span></p>
           </details>
           <details class="faq-item">
             <summary><span class="ru">Смогу ли я менять контент?</span><span class="en">Can I edit the
@@ -2550,7 +2862,7 @@
       });
     })();
   </script>
-<script id="mobile-layout-js">
+  <script id="mobile-layout-js">
     (function () {
       var header = document.querySelector('header');
       var burger = header && header.querySelector('.burger');

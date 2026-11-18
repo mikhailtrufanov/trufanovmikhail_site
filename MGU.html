@@ -1,0 +1,1669 @@
+<!doctype html>
+<html lang="ru" data-lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Кейс ДВМТЦ · Михаил Труфанов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1113;
+      --panel: #1d2126;
+      --panel-2: #15181c;
+      --grey: #303740;
+      --fg: #f2f2f2;
+      --card-text: #e6e6e6;
+      --muted: #8b8f95;
+      --amber: #e6a23c;
+      --amber-deep: #c8842a;
+      --line: rgba(243, 240, 233, .12);
+      --font-display: "Oswald", -apple-system, Segoe UI, Roboto, sans-serif;
+      --font: "Montserrat", -apple-system, Segoe UI, Roboto, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, monospace;
+      --max: 1240px;
+      --pad: 20px;
+      --read: 760px;
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.62;
+      -webkit-font-smoothing: antialiased
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none
+    }
+
+    html[data-lang="en"] .ru {
+      display: none !important
+    }
+
+    html[data-lang="ru"] .en {
+      display: none !important
+    }
+
+    img {
+      max-width: 100%
+    }
+
+    .wrap {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad)
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      margin: 0;
+      font-weight: 600;
+      line-height: 1.15
+    }
+
+    p {
+      margin: 0
+    }
+
+    .amber {
+      color: var(--amber)
+    }
+
+    .mono {
+      font-family: var(--mono)
+    }
+
+    /* header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(15, 17, 19, .82);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line)
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 78px;
+      gap: 16px
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .brand svg {
+      width: 31px;
+      height: 32px;
+      flex: 0 0 auto
+    }
+
+    .brand b {
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: .14em;
+      text-transform: uppercase
+    }
+
+    .menu {
+      display: flex;
+      gap: 26px;
+      font-size: 15px;
+      color: #d7d4cc
+    }
+
+    .menu a {
+      position: relative;
+      padding: 4px 0
+    }
+
+    .menu a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background: var(--amber);
+      transition: width .25s
+    }
+
+    .menu a:hover::after {
+      width: 100%
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 14px
+    }
+
+    .lang {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      overflow: hidden
+    }
+
+    .lang button {
+      background: transparent;
+      border: 0;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      padding: 8px 12px;
+      cursor: pointer
+    }
+
+    .lang button.active {
+      background: var(--amber);
+      color: #1a1206;
+      font-weight: 700
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-weight: 600;
+      font-size: 15px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: .2s
+    }
+
+    .btn-fill {
+      background: var(--amber);
+      color: #1a1206
+    }
+
+    .btn-fill:hover {
+      background: var(--amber-deep)
+    }
+
+    .nav .btn {
+      padding: 10px 18px;
+      font-size: 14px
+    }
+
+    /* breadcrumbs */
+    .crumbs {
+      padding: 18px 0 0
+    }
+
+    .crumbs .wrap {
+      font-size: 13px;
+      color: var(--muted);
+      font-family: var(--mono);
+      letter-spacing: .03em
+    }
+
+    .crumbs a:hover {
+      color: var(--amber)
+    }
+
+    .crumbs .sep {
+      margin: 0 8px;
+      opacity: .5
+    }
+
+    /* hero */
+    .hero {
+      padding: 40px 0 26px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .hero .wrap {
+      max-width: 960px
+    }
+
+    .hero .kicker {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--amber)
+    }
+
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(30px, 4.6vw, 54px);
+      letter-spacing: .01em;
+      text-transform: uppercase;
+      margin: 16px 0 12px
+    }
+
+    .hero .sub {
+      font-family: var(--font-display);
+      font-size: clamp(20px, 2.4vw, 28px);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .02em
+    }
+
+    /* article */
+    .article {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 14px var(--pad) 0
+    }
+
+    .article>* {
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .tx {
+      max-width: var(--read);
+      margin-top: 16px;
+      margin-left: auto;
+      margin-right: auto;
+      font-size: 17px;
+      color: var(--card-text)
+    }
+
+    .tx b {
+      color: var(--fg)
+    }
+
+    h2.sh {
+      max-width: var(--read);
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: clamp(24px, 3vw, 34px);
+      letter-spacing: .01em;
+      margin-top: 56px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    h2.sh.wide {
+      max-width: 1080px
+    }
+
+    .wide-block h2.sh,
+    .wide-block .tx,
+    .wide-block .chips,
+    .wide-block .subtx,
+    .wide-block .note,
+    .wide-block h3.lbl,
+    .wide-block ul.li,
+    .wide-block .emph {
+      max-width: 1080px
+    }
+
+    h2.sh::before {
+      content: "";
+      display: block;
+      width: 46px;
+      height: 3px;
+      background: var(--amber);
+      border-radius: 2px;
+      margin-bottom: 16px
+    }
+
+    h3.lbl {
+      max-width: var(--read);
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 19px;
+      color: var(--fg);
+      margin-top: 34px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    h4.subh {
+      max-width: var(--read);
+      font-weight: 700;
+      font-size: 17px;
+      color: var(--fg);
+      margin-top: 26px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    ul.li {
+      max-width: var(--read);
+      list-style: none;
+      padding: 0;
+      margin-top: 14px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    ul.li>li {
+      position: relative;
+      padding: 9px 0 9px 28px;
+      border-bottom: 1px solid var(--line);
+      color: var(--card-text)
+    }
+
+    ul.li>li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 15px;
+      width: 9px;
+      height: 9px;
+      border-radius: 3px;
+      background: var(--amber)
+    }
+
+    ul.li.list-plain>li {
+      padding-left: 2px
+    }
+
+    ul.li.list-plain>li::before {
+      display: none
+    }
+
+    /* emphasis line */
+    .emph {
+      max-width: var(--read);
+      margin-top: 28px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: .03em;
+      color: var(--amber);
+      font-size: clamp(20px, 2.6vw, 30px)
+    }
+
+    /* important callout */
+    .note {
+      max-width: var(--read);
+      margin-top: 26px;
+      margin-left: auto;
+      margin-right: auto;
+      background: rgba(230, 162, 60, .09);
+      border: 1px solid rgba(230, 162, 60, .32);
+      border-left: 4px solid var(--amber);
+      border-radius: 10px;
+      padding: 18px 22px;
+      color: var(--card-text);
+      font-size: 16px
+    }
+
+    .note b {
+      color: var(--amber);
+      font-weight: 700
+    }
+
+    /* footnote */
+    .fnote {
+      max-width: var(--read);
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
+      font-size: 13.5px;
+      color: var(--muted);
+      font-style: italic
+    }
+
+    /* figures */
+    .fig {
+      margin-top: 34px;
+      text-align: center
+    }
+
+    .fig img {
+      display: block;
+      margin: 0 auto;
+      height: auto
+    }
+
+    .fig.mid img {
+      max-width: 760px
+    }
+
+    .fig.wide img {
+      max-width: 1080px
+    }
+
+    .fig.tall img {
+      max-width: 640px
+    }
+
+    .fig.narrow img {
+      max-width: 470px
+    }
+
+    .fig figcaption {
+      margin-top: 12px;
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic
+    }
+
+    /* slide with text placed on its own background */
+    .slide-frame {
+      position: relative;
+      max-width: 1080px;
+      margin: 0 auto
+    }
+
+    .article > .slide-frame {
+      margin-top: 34px
+    }
+
+    .slide-frame img {
+      width: 100%
+    }
+
+    .slide-frame .slide-text {
+      position: absolute;
+      left: 5.6%;
+      top: 15%;
+      width: 36%;
+      text-align: left
+    }
+
+    .slide-frame .slide-text.slide-text-tasks {
+      top: 8%
+    }
+
+    .slide-frame .slide-text.dark.goal-head {
+      top: 6%
+    }
+
+    .slide-frame .slide-text.dark.goal-body {
+      top: 15.9%;
+      height: 51.7%;
+      display: flex;
+      align-items: center
+    }
+
+    .slide-frame .slide-text.dark.goal-body.contact-body {
+      height: 33.6%
+    }
+
+    .slide-frame .slide-text.dark h2.sh,
+    .slide-frame .slide-text.dark h3.lbl {
+      color: #111
+    }
+
+    .slide-frame .slide-text.dark .tx {
+      color: #3a3a3a
+    }
+
+    .slide-frame .slide-text.dark ul.li>li {
+      color: #3a3a3a
+    }
+
+    .slide-frame .stats-list {
+      position: absolute;
+      inset: 0
+    }
+
+    .slide-frame .stats-list .srow {
+      position: absolute;
+      left: 9.5%;
+      width: 34%;
+      transform: translateY(-50%);
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1;
+      color: #111
+    }
+
+    .slide-frame .stats-list .srow b.num {
+      color: #ff5c5c
+    }
+
+    .slide-frame .stats-list .srow.fnote-overlay {
+      top: auto;
+      bottom: 4%;
+      left: 0;
+      width: 40%;
+      text-align: center;
+      transform: none;
+      font-size: 11.5px;
+      line-height: 1.35;
+      font-style: italic;
+      color: #6b6b6b
+    }
+
+    .slide-frame .slide-text.goal-body {
+      text-align: left
+    }
+
+    .slide-frame .slide-text.goal-body>div {
+      width: 100%
+    }
+
+    .slide-frame .slide-text.goal-body .tx {
+      line-height: 2.16
+    }
+
+    .slide-frame .slide-text.goal-body .tx b.num {
+      color: #ff5c5c
+    }
+
+    .slide-frame .tools-list {
+      position: absolute;
+      inset: 0
+    }
+
+    .slide-frame .tools-list .trow {
+      position: absolute;
+      left: 6%;
+      transform: translateY(-100%);
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1;
+      color: #111
+    }
+
+    .slide-frame .tools-list .trow.fnote-overlay {
+      top: auto;
+      bottom: 4%;
+      left: 6%;
+      width: 55%;
+      transform: none;
+      font-size: 11px;
+      line-height: 1.35;
+      font-style: italic;
+      color: #6b6b6b
+    }
+
+    .slide-frame .slide-text h3.lbl {
+      max-width: none;
+      margin: 15px 0 0;
+      font-size: 16px;
+      color: var(--amber)
+    }
+
+    .slide-frame .slide-text h2.sh {
+      max-width: none;
+      margin: 0;
+      font-size: 22px;
+      color: var(--amber)
+    }
+
+    .slide-frame .slide-text h2.sh::before {
+      display: none
+    }
+
+    .slide-frame .slide-text h3.lbl:first-child,
+    .slide-frame .slide-text h3.lbl:first-child+h3.lbl {
+      margin-top: 0
+    }
+
+    .slide-frame .slide-text .tx {
+      max-width: none;
+      margin: 6px 0 0;
+      font-size: 14px;
+      line-height: 1.44
+    }
+
+    .slide-frame .slide-text ul.li {
+      max-width: none;
+      margin: 6px 0 0
+    }
+
+    .slide-frame .slide-text ul.li>li {
+      font-size: 13.5px;
+      padding: 5px 0 5px 22px
+    }
+
+    .slide-frame .slide-text ul.li>li>b.num:first-child {
+      color: #ff5c5c
+    }
+
+    .slide-frame .slide-text .note {
+      max-width: none;
+      margin: 12px 0 0;
+      padding: 12px 16px;
+      font-size: 13.5px
+    }
+
+    .slide-frame .slide-text .subtx {
+      max-width: none;
+      margin: 40px 0 0;
+      font-size: 13px;
+      line-height: 1.35;
+      color: var(--amber)
+    }
+
+    .slide-frame .slide-text.slide-text-full {
+      left: 5.6%;
+      width: 88.8%;
+      top: 0;
+      height: 52%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center
+    }
+
+    .slide-frame .slide-text.slide-text-stats {
+      left: 5.6%;
+      top: 0;
+      width: 68%;
+      height: 51.3%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center
+    }
+
+    .slide-frame .slide-text.slide-text-pie {
+      left: 5.5%;
+      top: 9%;
+      width: 55%
+    }
+
+    .slide-frame .slide-text.slide-text-list {
+      left: 5.6%;
+      top: 10.05%;
+      height: 79.65%;
+      width: 45%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center
+    }
+
+    .slide-frame .slide-text.slide-text-list h2.sh {
+      font-size: 18px
+    }
+
+    .slide-frame .slide-text.slide-text-list ul.li {
+      margin-top: 5px
+    }
+
+    .slide-frame .slide-text.slide-text-list ul.li>li {
+      font-size: 13px;
+      padding: 4px 0 4px 20px
+    }
+
+    /* contacts */
+    .contact {
+      margin-top: 60px;
+      background: var(--panel-2);
+      border-top: 1px solid var(--line);
+      padding: 44px 0
+    }
+
+    .contact .in {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 var(--pad);
+      text-align: center
+    }
+
+    .contact p {
+      color: var(--card-text);
+      font-size: 17px
+    }
+
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 22px
+    }
+
+    .cbtn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 13px 20px;
+      font-size: 15px;
+      color: var(--fg);
+      transition: .16s
+    }
+
+    .cbtn:hover {
+      border-color: var(--amber);
+      color: var(--amber)
+    }
+
+    .cbtn svg {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 auto
+    }
+
+    .cbtn.tg svg {
+      fill: #e6a23c
+    }
+
+    .cbtn.wa svg {
+      fill: #e6a23c
+    }
+
+    .cbtn.max svg {
+      fill: #e6a23c
+    }
+
+    /* case navigation */
+    .casenav {
+      border-top: 1px solid var(--line);
+      padding: 44px 0 54px
+    }
+
+    .casenav .in {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 var(--pad)
+    }
+
+    .casenav .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap
+    }
+
+    .casenav .row a {
+      font-family: var(--mono);
+      font-size: 13px;
+      letter-spacing: .04em;
+      color: var(--muted)
+    }
+
+    .casenav .row a:hover {
+      color: var(--amber)
+    }
+
+    .casenav .row .all {
+      color: var(--fg)
+    }
+
+    .casenav .eyebrow {
+      display: block;
+      margin-top: 40px;
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--amber)
+    }
+
+    .casenav h2 {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      font-size: clamp(24px, 3vw, 34px);
+      letter-spacing: .01em;
+      margin-top: 8px
+    }
+
+    .others {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 24px
+    }
+
+    .ocard {
+      display: block;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: .16s
+    }
+
+    .ocard:hover {
+      border-color: rgba(230, 162, 60, .5);
+      transform: translateY(-2px)
+    }
+
+    .ocard .oimg {
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--panel-2);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .05em;
+      text-transform: uppercase
+    }
+
+    .ocard .obody {
+      padding: 16px 18px
+    }
+
+    .ocard .otag {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--amber)
+    }
+
+    .ocard h4 {
+      font-size: 16px;
+      margin: 8px 0 6px;
+      color: var(--fg);
+      font-weight: 700
+    }
+
+    .ocard p {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    @media(max-width: 760px) {
+      .others {
+        grid-template-columns: 1fr
+      }
+
+      .slide-frame .slide-text {
+        position: static;
+        width: auto;
+        margin-bottom: 20px
+      }
+
+      .slide-frame .slide-text h3.lbl,
+      .slide-frame .slide-text h2.sh,
+      .slide-frame .slide-text .tx,
+      .slide-frame .slide-text ul.li,
+      .slide-frame .slide-text .note,
+      .slide-frame .slide-text .subtx {
+        max-width: var(--read)
+      }
+
+      .slide-frame .slide-text h3.lbl {
+        font-size: 19px
+      }
+
+      .slide-frame .slide-text h2.sh {
+        font-size: clamp(24px, 3vw, 34px);
+        margin-top: 0
+      }
+
+      .slide-frame .slide-text h2.sh::before {
+        display: block
+      }
+
+      .slide-frame .slide-text .tx {
+        font-size: 17px
+      }
+
+      .slide-frame .slide-text ul.li>li {
+        font-size: 15px;
+        padding: 9px 0 9px 28px
+      }
+
+      .slide-frame .slide-text .note {
+        font-size: 16px;
+        padding: 18px 22px
+      }
+
+      .slide-frame .slide-text .subtx {
+        font-size: 15px;
+        line-height: 1.62
+      }
+    }
+
+    /* footer */
+    .footer {
+      background: #0b0d0e;
+      border-top: 1px solid var(--line);
+      padding: 36px 0 28px
+    }
+
+    .footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      align-items: center
+    }
+
+    .footer .copy {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .footer .mono {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    @media(max-width:640px) {
+      .menu {
+        display: none
+      }
+    }
+
+
+    /* casino-specific additions */
+    .subtx {
+      max-width: var(--read);
+      margin: 12px auto 0;
+      color: var(--muted);
+      font-size: 15px
+    }
+
+    .num {
+      color: var(--amber);
+      font-weight: 700;
+      font-family: var(--font-display);
+      font-size: 1.12em;
+      letter-spacing: .01em
+    }
+
+    .riskgrid {
+      max-width: 1080px;
+      margin: 18px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px
+    }
+
+    .riskcard {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 16px 18px
+    }
+
+    .riskcard .rk {
+      color: var(--fg);
+      font-weight: 600
+    }
+
+    .riskcard .cs {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 7px;
+      padding-left: 22px;
+      position: relative
+    }
+
+    .riskcard .cs::before {
+      content: "\2192";
+      position: absolute;
+      left: 0;
+      color: var(--amber);
+      font-weight: 700
+    }
+
+    .chips {
+      max-width: var(--read);
+      margin: 16px auto 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px
+    }
+
+    .chip {
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--amber);
+      border-radius: 8px;
+      padding: 14px 16px;
+      color: var(--card-text);
+      font-size: 15px
+    }
+
+    ul.li ul {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 2px
+    }
+
+    ul.li ul li {
+      position: relative;
+      padding: 7px 0 7px 26px;
+      border-bottom: 1px dashed var(--line);
+      color: var(--muted);
+      font-size: 15px
+    }
+
+    ul.li ul li::before {
+      content: "\2013";
+      position: absolute;
+      left: 6px;
+      top: 7px;
+      background: none;
+      width: auto;
+      height: auto;
+      color: var(--amber)
+    }
+
+    @media(max-width:640px) {
+      .chips {
+        grid-template-columns: 1fr
+      }
+    }
+  
+    /* marafon additions */
+    .fig.card img{background:#fff;padding:16px}
+  </style>
+<style id="shared-site-navigation">
+/* Shared navigation: website development stays on one line. */
+header .menu{gap:16px;font-size:13px;flex-shrink:0}
+header .menu a{white-space:nowrap;flex-shrink:0}
+header .brand,header .logo,header .nav-right,header .right{flex-shrink:0}
+header .brand b{font-size:14px;white-space:nowrap}
+header .nav,header.header .wrap{gap:16px}
+@media(max-width:1180px){
+  header .nav,header.header .wrap{height:auto;min-height:78px;flex-wrap:wrap;padding-top:14px;padding-bottom:10px;row-gap:10px}
+  header .nav-right,header .right{margin-left:auto}
+  header .menu{display:flex;order:3;flex-basis:100%;min-width:0;max-width:100%;margin-left:0;justify-content:center;overflow-x:auto;padding:4px 0 8px;scrollbar-width:thin;scrollbar-color:var(--amber) transparent}
+  html{scroll-padding-top:142px}
+}
+@media(max-width:640px){
+  header .menu{justify-content:flex-start;gap:20px;font-size:12px}
+  header .brand{gap:8px}
+  header .brand b{font-size:10px;letter-spacing:.07em}
+  header .brand svg,header .brand img{width:24px;height:26px}
+  header .logo{font-size:16px;white-space:nowrap;gap:8px}
+  header .nav-right>.btn,header .right>.btn{display:none}
+  header .lang button{padding:8px;font-size:11px}
+}
+</style>
+<style id="mobile-layout">
+    /* Mobile: content never wider than the header, burger menu. */
+    header .burger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 42px;
+      height: 42px;
+      padding: 0 10px;
+      margin-left: 4px;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      cursor: pointer;
+      flex-shrink: 0
+    }
+
+    header .burger span {
+      display: block;
+      height: 2px;
+      background: var(--fg);
+      border-radius: 2px;
+      transition: transform .25s, opacity .2s
+    }
+
+    header.menu-open .burger span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg)
+    }
+
+    header.menu-open .burger span:nth-child(2) {
+      opacity: 0
+    }
+
+    header.menu-open .burger span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg)
+    }
+
+    @media(max-width:900px) {
+      body {
+        overflow-x: hidden
+      }
+
+      img,
+      video,
+      iframe,
+      canvas {
+        max-width: 100% !important
+      }
+
+      img {
+        height: auto
+      }
+
+      figure.fig {
+        margin-left: 0;
+        margin-right: 0;
+        max-width: 100%
+      }
+
+      html {
+        scroll-padding-top: 80px
+      }
+
+      header .nav {
+        position: relative;
+        flex-wrap: nowrap;
+        height: 64px;
+        min-height: 64px;
+        padding-top: 0;
+        padding-bottom: 0
+      }
+
+      header .brand {
+        min-width: 0;
+        flex-shrink: 1
+      }
+
+      header .nav-right {
+        margin-left: auto
+      }
+
+      header .burger {
+        display: inline-flex
+      }
+
+      header .menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        order: 0;
+        flex-direction: column;
+        gap: 0;
+        max-width: none;
+        max-height: calc(100vh - 64px);
+        overflow-y: auto;
+        padding: 6px var(--pad) 14px;
+        font-size: 16px;
+        background: rgba(15, 17, 19, .97);
+        border-bottom: 1px solid var(--line);
+        box-shadow: 0 18px 30px rgba(0, 0, 0, .35)
+      }
+
+      header.menu-open .menu {
+        display: flex
+      }
+
+      header .menu a {
+        padding: 14px 0;
+        white-space: normal;
+        border-bottom: 1px solid var(--line)
+      }
+
+      header .menu a:last-child {
+        border-bottom: 0
+      }
+
+      header .menu a::after {
+        display: none
+      }
+    }
+  </style>
+  <style>
+    .article .fig img { max-width: min(100%, 1080px); }
+    .article .fig.mid img { max-width: min(100%, var(--read)); }
+    .casenav .oimg img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+  </style>
+</head>
+<body id="top">
+<header>
+    <div class="wrap nav">
+      <a class="brand" href="index.html#top">
+        <svg viewBox="0 0 31 32" fill="none" aria-hidden="true">
+          <path fill-rule="evenodd" clip-rule="evenodd"
+            d="M16.1092 0V22.9666C16.1092 23.7761 14.8766 23.7761 14.8766 22.9666V0H0V13.4351L6.82907 17.468V8.43467C6.82907 7.61563 8.04753 7.60126 8.04753 8.43467V27.9527L14.8766 31.9856L16.0289 32L22.9383 27.7611V8.4203C22.9714 7.59647 24.1568 7.63 24.1568 8.4203V17.468L31 13.5022V0H16.1092Z"
+            fill="#e6a23c" />
+        </svg>
+        <b><span class="ru">МИХАИЛ&nbsp;ТРУФАНОВ</span><span class="en">MIKHAIL TRUFANOV</span></b>
+      </a>
+      <nav class="menu" id="site-menu">
+        <a href="index.html#services"><span class="ru">Услуги</span><span class="en">Services</span></a>
+        <a href="sites_prises.html"><span class="ru">Разработка сайтов</span><span class="en">Website development</span></a>
+        <a href="index.html#ai"><span class="ru">Маркетинг с ИИ</span><span class="en">AI marketing</span></a>
+        <a href="#cases"><span class="ru">Кейсы</span><span class="en">Cases</span></a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="#contact"><span class="ru">Контакты</span><span class="en">Contacts</span></a>
+      </nav>
+      <div class="nav-right">
+        <div class="lang" role="group" aria-label="Language / Язык">
+          <button data-set-lang="ru" class="active" type="button">RU</button>
+          <button data-set-lang="en" type="button">EN</button>
+        </div>
+        <a class="btn btn-fill" href="#contact"><span class="ru">Обсудить проект</span><span class="en">Let’s
+            talk</span></a>
+      </div>
+    <button class="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="site-menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <div class="crumbs">
+    <div class="wrap"><a href="index.html#top"><span class="ru">Главная</span><span class="en">Home</span></a><span class="sep">→</span><a href="index.html#cases"><span class="ru">Кейсы</span><span class="en">Case Studies</span></a><span class="sep">→</span><span class="ru">ДВМТЦ</span><span class="en">FEMTC</span></div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <p class="kicker"><span class="ru">Кейс · веб-разработка</span><span class="en">Case study · Web development</span></p>
+        <h1><span class="ru">От выбора курса до начала обучения: связали сайт, 1С и образовательную платформу ДВМТЦ</span><span class="en">From course selection to learning: connecting FEMTC’s website, 1C and learning platform</span></h1>
+        <p class="sub"><span class="ru">Дальневосточный морской тренажерный центр</span><span class="en">Far Eastern Maritime Training Centre</span></p>
+      </div>
+    </section>
+
+  <article class="article">
+
+    <figure class="fig wide"><img src="MGU_case/2026-11-17_11-45-00.webp" width="868" height="864" alt="" fetchpriority="high">
+      <figcaption><span class="ru">Главная страница интернет-магазина ДВМТЦ</span><span class="en">Home page of the FEMTC online store</span></figcaption>
+    </figure>
+
+    <div class="ru" lang="ru">
+      <p class="tx"><b>Клиент:</b> Дальневосточный морской тренажерный центр</p>
+      <p class="tx"><b>Проект:</b> развитие интернет-магазина образовательных программ</p>
+      <p class="tx"><b>Направления работы:</b> проектирование пользовательских сценариев, веб-разработка, интеграция с 1С и iSpring Learn, автоматизация оформления и оплаты обучения</p>
+      <p class="tx">Работа проведена совместно с нашими партнёрами по 1С.</p>
+    </div>
+
+    <div class="en" lang="en">
+      <p class="tx"><b>Client:</b> Far Eastern Maritime Training Centre</p>
+      <p class="tx"><b>Project:</b> Development of an online store for training programmes</p>
+      <p class="tx"><b>Scope of work:</b> User journey design, web development, integration with 1C and iSpring Learn, automation of enrolment and payment</p>
+      <p class="tx">The project was delivered in collaboration with our 1C partners.</p>
+    </div>
+
+    <div class="ru" lang="ru">
+      <h2 class="sh">Цель проекта</h2>
+      <p class="tx">Сделать процесс выбора курсов удобным для слушателей, а внутренние процессы автоматизированными и связанными с учебной площадкой и 1С: объединить выбор курса, оформление заявки, согласование документов, оплату и получение доступа к обучению в последовательный процесс.</p>
+      <p class="tx">Для слушателя — сделать понятными дальнейшие действия: какую программу выбрать, какие сведения предоставить, когда оплатить и где начать обучение.</p>
+      <p class="tx">Для учебного центра — связать сайт с внутренней системой учёта, чтобы данные о программах, слушателях, заявках и договорах использовались согласованно.</p>
+    </div>
+
+    <div class="en" lang="en">
+      <h2 class="sh">Project goal</h2>
+      <p class="tx">Make it easier for learners to choose a course while automating the training centre’s internal processes and connecting them to its learning platform and 1C. The goal was to bring course selection, application, document approval, payment and access to learning together into one coherent process.</p>
+      <p class="tx">For learners, the aim was to make each next step clear: which programme to choose, what information to provide, when to pay and where to begin learning.</p>
+      <p class="tx">For the training centre, the goal was to connect the website to its internal management system so that information about programmes, learners, applications and contracts could be used consistently.</p>
+    </div>
+
+    <div class="ru" lang="ru">
+      <h2 class="sh">В чём сложность проекта?</h2>
+      <p class="tx">Продажа образовательной программы отличается от обычной покупки товара. До начала обучения необходимо учесть квалификацию слушателя, собрать сведения для оформления, подготовить договор, согласовать заявку и определить условия доступа к курсу.</p>
+      <p class="tx">При этом разные программы требуют разных сценариев:</p>
+      <ul class="li">
+        <li>Дистанционное обучение: доступ к материалам предоставляется после оплаты на установленный срок.</li>
+        <li>Очное обучение: запись связана с расписанием и обработкой заявки специалистом центра.</li>
+        <li>Смешанное обучение: доступ к дистанционной части должен учитывать даты очных занятий.</li>
+        <li>Программы в Moodle: доступ выдаёт менеджер в рамках отдельного процесса.</li>
+        <li>Обучение за счёт организации: договор и расчёты ведутся с компанией, а обучение проходит конкретный слушатель.</li>
+      </ul>
+      <p class="tx">Дополнительная сложность — согласовать работу сайта, «1С: Управление учебным центром» и iSpring Learn. У каждой системы своя роль, но для пользователя переходы между ними должны оставаться понятными и «бесшовными».</p>
+    </div>
+
+    <div class="en" lang="en">
+      <h2 class="sh">What made the project challenging?</h2>
+      <p class="tx">Selling a training programme differs from selling a physical product. Before training can begin, the centre needs to consider the learner’s qualifications, collect enrolment details, prepare a contract, review the application and determine the conditions for course access.</p>
+      <p class="tx">Different programmes also require different workflows:</p>
+      <ul class="li">
+        <li>Online learning: access to materials is granted for a fixed period after payment.</li>
+        <li>In-person training: enrolment depends on the schedule and review by a member of the centre’s team.</li>
+        <li>Blended learning: access to the online component must take the dates of in-person sessions into account.</li>
+        <li>Moodle programmes: access is granted by a manager through a separate process.</li>
+        <li>Employer-funded training: the contract and payment are handled with the organisation, while an individual employee takes the course.</li>
+      </ul>
+      <p class="tx">Another challenge was coordinating the website, the 1C training centre management system and iSpring Learn. Each system has its own role, but the transitions between them needed to feel clear and seamless to the user.</p>
+    </div>
+
+    <div class="ru" lang="ru">
+      <h2 class="sh">Наш подход</h2>
+      <p class="tx">В основу работы мы положили путь слушателя и действия сотрудников центра на каждом его этапе.</p>
+      <p class="emph">Выбор программы → регистрация → заявка → согласование договора → оплата → доступ к обучению → завершение курса.</p>
+      <p class="tx">Для каждого этапа определили, какие данные нужны, где они хранятся, кто принимает решение и что пользователь видит в личном кабинете.</p>
+      <p class="tx">Автоматизировали повторяющиеся операции, сохранив участие менеджера там, где требуется проверка или согласование.</p>
+    </div>
+
+    <div class="en" lang="en">
+      <h2 class="sh">Our approach</h2>
+      <p class="tx">We built the project around the learner’s journey and the actions required from the centre’s team at each stage:</p>
+      <p class="emph">Programme selection → registration → application → contract approval → payment → access to learning → course completion.</p>
+      <p class="tx">For every stage, we defined what information was needed, where it would be stored, who would make the decision and what the user would see in their account.</p>
+      <p class="tx">We automated repetitive tasks while retaining a manager’s involvement wherever review or approval was needed.</p>
+    </div>
+
+    <figure class="fig wide"><img src="MGU_case/2026-11-18_17-23-19.webp" width="1344" height="886" alt="" loading="lazy" decoding="async">
+      <figcaption><span class="ru">Страница с информацией о тренажерном центре</span><span class="en">Training centre information page</span></figcaption>
+    </figure>
+
+    <div class="ru" lang="ru">
+      <h2 class="sh">Что сделано.</h2>
+    </div>
+
+    <div class="en" lang="en">
+      <h2 class="sh">What we did</h2>
+    </div>
+
+    <div class="ru" lang="ru">
+      <h3 class="lbl">1. Организовано управление каталогом из 1С</h3>
+      <p class="tx">Сделали 1С основным источником информации об образовательных программах.</p>
+      <p class="tx">Названия, описания, стоимость, продолжительность, форма обучения и расписание передаются на сайт из учётной системы. Сотрудник центра определяет в карточке программы, должна ли она отображаться в магазине.</p>
+      <p class="tx">Заказчик управляет предложением в привычной рабочей системе. Повторно редактировать те же сведения на сайте не требуется.</p>
+      <p class="tx">Предусмотрели синхронизацию данных и ручное обновление, чтобы сотрудники могли контролировать публикацию изменений.</p>
+    </div>
+
+    <div class="en" lang="en">
+      <h3 class="lbl">1. Enabled catalogue management through 1C</h3>
+      <p class="tx">We made 1C the primary source of information about training programmes.</p>
+      <p class="tx">Programme names, descriptions, prices, durations, learning formats and schedules are transferred from the management system to the website. A member of the centre’s team can choose whether each programme appears in the online store directly from its record in 1C.</p>
+      <p class="tx">The client can manage its offering in the system its team already uses, without having to update the same information on the website.</p>
+      <p class="tx">We also provided data synchronisation and a manual refresh option, giving the team control over when changes are published.</p>
+    </div>
+
+    <figure class="fig mid"><img src="MGU_case/2026-11-17_11-58-44.webp" width="845" height="815" alt="" loading="lazy" decoding="async">
+      <figcaption><span class="ru">Каталог образовательных программ</span><span class="en">Training programme catalogue</span></figcaption>
+    </figure>
+
+    <div class="ru" lang="ru">
+      <h3 class="lbl">2. Построен поиск вокруг задачи слушателя</h3>
+      <p class="tx">В профессиональном образовании человек не всегда знает точное название необходимого курса. Часто он понимает свою задачу: получить квалификационный документ, повысить его уровень или продлить его действие.</p>
+      <p class="tx">Поэтому реализовали двухуровневую фильтрацию:</p>
+      <ul class="li">
+        <li>сначала — по типу диплома или квалификационного документа;</li>
+        <li>затем — по типу квалификационного испытания.</li>
+      </ul>
+      <p class="tx">Дополнительно предусмотрели поиск курсов, фильтры по форме обучения, стоимости и наличию расписания.</p>
+      <p class="tx">Каталог помогает перейти от профессиональной задачи к подходящей программе.</p>
+      <p class="tx">В карточке курса собрали сведения, необходимые для принятия решения: описание, продолжительность, стоимость, формат и ближайшие даты обучения.</p>
+    </div>
+
+    <div class="en" lang="en">
+      <h3 class="lbl">2. Built course discovery around the learner’s goal</h3>
+      <p class="tx">In professional training, people do not always know the exact name of the course they need. They often know the goal instead: obtain a qualification, upgrade it or renew an existing credential.</p>
+      <p class="tx">We therefore implemented two levels of filtering:</p>
+      <ul class="li">
+        <li>First, by diploma or professional credential.</li>
+        <li>Then, by type of qualification assessment.</li>
+      </ul>
+      <p class="tx">We also added course search and filters for learning format, price and schedule availability.</p>
+      <p class="tx">The catalogue helps learners move from a professional goal to a suitable programme.</p>
+      <p class="tx">Each course page brings together the information needed to make a decision: description, duration, price, format and upcoming training dates.</p>
+    </div>
+
+    <figure class="fig mid"><img src="MGU_case/2026-11-17_11-58-20.webp" width="851" height="792" alt="" loading="lazy" decoding="async">
+      <figcaption><span class="ru">Поиск курсов и фильтры каталога</span><span class="en">Course search and catalogue filters</span></figcaption>
+    </figure>
+
+    <figure class="fig mid"><img src="MGU_case/2026-11-18_17-20-02.webp" width="568" height="699" alt="" loading="lazy" decoding="async">
+      <figcaption><span class="ru">Карточка курса с описанием и условиями записи</span><span class="en">Course page with a description and enrolment details</span></figcaption>
+    </figure>
+
+    <div class="ru" lang="ru">
+      <h3 class="lbl">3. Связали регистрацию и заявки с учётной системой</h3>
+      <p class="tx">При регистрации учётная запись на сайте связывается с карточкой слушателя в 1С. Предусмотрели проверку совпадений, чтобы повторное обращение человека не приводило к необоснованному созданию новых карточек.</p>
+      <p class="tx">Данные из профиля подставляются в форму заявки. После отправки информация передаётся в 1С, где сотрудник центра продолжает работу с обращением.</p>
+      <p class="tx">Процесс учитывает и нового клиента, и слушателя, который уже обращался в центр.</p>
+    </div>
+
+    <div class="en" lang="en">
+      <h3 class="lbl">3. Connected registration and applications to 1C</h3>
+      <p class="tx">When a learner registers, their website account is linked to their learner record in 1C. We added matching checks to prevent unnecessary duplicate records when someone returns to the centre.</p>
+      <p class="tx">Profile details are pre-filled in the application form. Once submitted, the information is sent to 1C, where a member of the centre’s team continues processing the application.</p>
+      <p class="tx">The process supports both new clients and learners who have previously used the centre’s services.</p>
+    </div>
+
+    <div class="ru" lang="ru">
+      <h3 class="lbl">4. Сделали личный кабинет рабочим инструментом слушателя</h3>
+      <p class="tx">В личном кабинете собрали:</p>
+      <ul class="li">
+        <li>текущие заявки и их статусы;</li>
+        <li>действующие и завершённые курсы;</li>
+        <li>договоры для скачивания;</li>
+        <li>загрузку подписанного договора;</li>
+        <li>персональные данные;</li>
+        <li>уведомления и переход к обучению.</li>
+      </ul>
+      <p class="tx">Статусы показывают, на каком этапе находится заявка: обрабатывается, согласована, оплачена или завершена. Договор формируется в 1С и передаётся в личный кабинет.</p>
+      <p class="tx">Слушатель видит ход оформления и получает документы в одном месте.</p>
+    </div>
+
+    <div class="en" lang="en">
+      <h3 class="lbl">4. Made the learner account a practical tool</h3>
+      <p class="tx">The learner account brings together:</p>
+      <ul class="li">
+        <li>Current applications and their statuses.</li>
+        <li>Active and completed courses.</li>
+        <li>Contracts available to download.</li>
+        <li>Upload of the signed contract.</li>
+        <li>Personal details.</li>
+        <li>Notifications and links to learning materials.</li>
+      </ul>
+      <p class="tx">Statuses show the progress of an application: being processed, approved, paid or completed. The contract is generated in 1C and delivered to the learner account.</p>
+      <p class="tx">Learners can follow their application and access their documents in one place.</p>
+    </div>
+
+    <figure class="fig mid"><img src="MGU_case/2026-11-18_17-27-39.webp" width="863" height="903" alt="" loading="lazy" decoding="async">
+      <figcaption><span class="ru">Личный кабинет слушателя и сведения о заявке</span><span class="en">Learner account and application details</span></figcaption>
+    </figure>
+
+    <figure class="fig mid"><img src="MGU_case/2026-11-18_17-29-46.webp" width="874" height="681" alt="" loading="lazy" decoding="async">
+      <figcaption><span class="ru">Уведомление о создании заявки</span><span class="en">Application confirmation in the notifications section</span></figcaption>
+    </figure>
+
+    <div class="ru" lang="ru">
+      <h3 class="lbl">5. Объединили оплату и предоставление доступа</h3>
+      <p class="tx">Связали возможность оплаты со статусом заявки: кнопка появляется после необходимого согласования.</p>
+      <p class="tx">Для дистанционных программ в iSpring Learn после подтверждения оплаты автоматически предоставляется доступ к соответствующему курсу. В личном кабинете отображаются переход к материалам и срок обучения.</p>
+      <p class="tx">Для смешанных программ предоставление доступа связано с расписанием очной части. Для программ в Moodle сохранили предусмотренную заказчиком обработку через менеджера.</p>
+      <p class="tx">Также реализовали управление доступом при завершении обучения и отмене заявки, включая деактивацию или архивирование учётных записей по предусмотренным правилам.</p>
+      <p class="tx">Автоматизация охватывает весь срок обучения — от предоставления доступа до его завершения.</p>
+    </div>
+
+    <div class="en" lang="en">
+      <h3 class="lbl">5. Connected payment with course access</h3>
+      <p class="tx">We linked payment availability to the application status: the payment button appears once the required approvals are complete.</p>
+      <p class="tx">For online programmes delivered through iSpring Learn, access to the relevant course is granted automatically once payment is confirmed. The learner account displays a link to the materials and the access period.</p>
+      <p class="tx">For blended programmes, access is linked to the schedule of in-person sessions. For Moodle programmes, we retained the manager-led process specified by the client.</p>
+      <p class="tx">We also implemented access management for course completion and application cancellation, including account deactivation or archiving according to the defined rules.</p>
+      <p class="tx">The automation covers the full learning period, from granting access through to completion.</p>
+    </div>
+
+    <figure class="fig mid"><img src="MGU_case/2026-11-18_17-29-08.webp" width="879" height="906" alt="" loading="lazy" decoding="async">
+      <figcaption><span class="ru">Документы и оплата в личном кабинете</span><span class="en">Documents and payment in the learner account</span></figcaption>
+    </figure>
+
+    <div class="ru" lang="ru">
+      <h3 class="lbl">6. Учли корпоративных заказчиков</h3>
+      <p class="tx">Разработали отдельный сценарий для слушателей, которых направляет организация.</p>
+      <p class="tx">Заявка связывается с компанией, договор оформляется на юридическое лицо, а расчёты ведутся по безналичной оплате. После поступления средств менеджер подтверждает оплату в 1С.</p>
+      <p class="tx">Слушатель видит, что обучение оплачивает организация. Требование оплатить курс самостоятельно ему не показывается.</p>
+      <p class="tx">Один магазин поддерживает продажи частным клиентам и работу с организациями с учётом различий в оформлении и расчётах.</p>
+    </div>
+
+    <div class="en" lang="en">
+      <h3 class="lbl">6. Accounted for corporate clients</h3>
+      <p class="tx">We developed a separate workflow for learners sponsored by an organisation.</p>
+      <p class="tx">The application is linked to the company, the contract is issued to the legal entity, and payment is made by bank transfer. Once the funds arrive, a manager confirms payment in 1C.</p>
+      <p class="tx">The learner can see that the organisation is paying for their training and is not asked to pay for the course themselves.</p>
+      <p class="tx">One online store supports both individual and corporate clients, taking their different enrolment and payment processes into account.</p>
+    </div>
+
+    <div class="ru" lang="ru">
+      <h3 class="lbl">7. Предусмотрели сбои и повторные действия</h3>
+      <p class="tx">В интеграционном проекте важно продумать ситуации, когда процесс прерывается.</p>
+      <p class="tx">Реализовали проверки данных, защиту от повторных заявок на тот же курс и регистрацию изменений статусов.</p>
+      <p class="tx">При временной недоступности 1С заявка сохраняется в очереди для последующей передачи. Для обмена с образовательной платформой предусмотрели обработку ошибок и повторные попытки.</p>
+      <p class="tx">Надёжность процесса стала частью разработки наряду с интерфейсом и функциональностью.</p>
+    </div>
+
+    <div class="en" lang="en">
+      <h3 class="lbl">7. Planned for failures and retries</h3>
+      <p class="tx">In an integration project, it is essential to consider what happens when a process is interrupted.</p>
+      <p class="tx">We implemented data validation, protection against duplicate applications for the same course, and logging of status changes.</p>
+      <p class="tx">If 1C is temporarily unavailable, an application is saved in a queue for later transfer. For communication with the learning platform, we added error handling and retry mechanisms.</p>
+      <p class="tx">Process reliability became part of the development alongside the interface and functionality.</p>
+    </div>
+
+    <div class="ru" lang="ru">
+      <h2 class="sh">Что получил заказчик</h2>
+      <p class="tx">В рамках проекта реализован согласованный процесс продажи и оформления обучения:</p>
+      <ul class="li">
+        <li>каталог управляется из 1С;</li>
+        <li>заявки с сайта поступают в учётную систему;</li>
+        <li>документы и статусы доступны слушателю в личном кабинете;</li>
+        <li>оплата связана с дальнейшим предоставлением доступа;</li>
+        <li>разные форматы обучения работают по своим правилам;</li>
+        <li>предусмотрен отдельный порядок для корпоративных клиентов.</li>
+      </ul>
+      <p class="tx">Работу завершили тестированием пользовательских сценариев и интеграций, подготовкой документации и обучением сотрудников.</p>
+      <p class="note">Главный результат — сайт стал рабочим инструментом учебного центра, связанным с оформлением слушателей, оплатой и организацией доступа к обучению.</p>
+      <p class="tx">Если вашему бизнесу нужен сайт, связанный с CRM, 1С, оплатой или другими рабочими системами, — обсудим вашу задачу. Определим, какие действия стоит автоматизировать и как сделать процесс понятным для клиентов и команды.</p>
+    </div>
+
+    <div class="en" lang="en">
+      <h2 class="sh">What the client received</h2>
+      <p class="tx">The project delivered a connected process for selling training programmes and enrolling learners:</p>
+      <ul class="li">
+        <li>The catalogue is managed through 1C.</li>
+        <li>Website applications are sent to the management system.</li>
+        <li>Documents and statuses are available to learners in their accounts.</li>
+        <li>Payment is connected to the subsequent granting of access.</li>
+        <li>Different learning formats follow their own rules.</li>
+        <li>Corporate clients have a dedicated process.</li>
+      </ul>
+      <p class="tx">We completed the work by testing user journeys and integrations, preparing documentation and training the centre’s team.</p>
+      <p class="note">The main result is a website that serves as a working tool for the training centre, connected to learner enrolment, payment and access to learning.</p>
+      <p class="tx">If your business needs a website connected to a CRM, 1C, payment services or other business systems, let’s discuss your goals. We’ll identify which steps are worth automating and how to make the process clear for both your clients and your team.</p>
+    </div>
+
+  </article>
+  </main>
+
+
+  <section class="contact" id="contact">
+    <div class="in">
+      <p class="ru">По вопросам сотрудничества обращайтесь к автору кейса, руководителю компании</p>
+      <p class="en">For collaboration enquiries, please contact the case study’s author and company head</p>
+      <div class="contact-row">
+        <a class="cbtn tg" href="https://t.me/MikTruef" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M9.8 15.6l-.4 4.2c.5 0 .8-.2 1.1-.5l2.6-2.4 5.4 3.9c1 .5 1.7.3 1.9-.9l3.5-16.3c.3-1.4-.5-2-1.5-1.6L1.2 9.4C-.1 9.9 0 10.7 1 11l5.5 1.7L20 4.2c.6-.4 1.2-.2.7.2z" />
+          </svg>
+          @MikTruef
+        </a>
+        <a class="cbtn" href="mailto:m.trufanov@hmedia.pro">m.trufanov@hmedia.pro</a>
+        <a class="cbtn wa" href="https://wa.me/79242340277" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2a10 10 0 00-8.6 15L2 22l5.2-1.4A10 10 0 1012 2zm5.8 14.1c-.2.7-1.4 1.3-2 1.4-.5.1-1.2.1-1.9-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.4.4c-.2.2-.3.4-.1.7.2.3.9 1.5 2 2.4 1.4 1.2 2.5 1.6 2.8 1.7.3.1.5.1.7-.1l.9-1c.2-.3.4-.2.7-.1l2 .9c.3.2.5.3.6.4.1.2.1.8-.1 1.5z" />
+          </svg>
+          +7 924 234 02 77
+        </a>
+        <a class="cbtn max" href="https://max.ru/u/f9LHodD0cOIjYq-bW_DKjBgMsAPnSGMA6B4l_44J5GDy4AVkhQdPqwYwMp8"
+          target="_blank" rel="noopener">
+          <svg viewBox="0 0 200 200">
+            <path fill-rule="evenodd"
+              d="M92.69,3.95 L105.26,3.57 L115.79,4.42 L125.66,6.41 L137.5,10.35 L149.34,16.27 L157.24,21.52 L166.45,29.34 L175.08,38.82 L182.4,49.34 L187.57,59.21 L192.29,71.71 L194.93,82.89 L196.22,94.08 L196.19,105.26 L194.29,119.08 L190.97,130.92 L187.13,140.13 L181.78,150 L177.2,156.58 L169.82,165.13 L161.84,172.48 L153.95,178.33 L146.05,183.12 L134.87,188.32 L125,191.56 L115.13,193.64 L103.95,194.56 L93.42,194.24 L84.87,192.9 L76.32,190.3 L68.42,186.29 L59.87,180.72 L51.32,187.58 L40.13,192.89 L30.26,194.78 L23.03,193.54 L20.26,191.45 L18.34,186.84 L17.91,177.63 L16.63,168.42 L7.68,130.92 L5.02,115.13 L4.38,102.63 L5.07,90.13 L7.07,78.29 L10.99,65.13 L16.31,53.29 L22.85,42.76 L31.58,32.35 L42.11,22.97 L54.61,14.98 L66.45,9.71 L80.26,5.77 Z M95.39,50.62 L88.16,51.8 L82.24,53.84 L76.32,56.97 L71.71,60.29 L66.45,65.38 L62.41,70.39 L58.47,76.97 L55.64,83.55 L53.71,90.13 L52.45,97.37 L51.77,105.92 L51.85,116.45 L53.11,128.29 L55.02,136.84 L57.72,144.08 L60.53,147.5 L62.5,147.74 L65.13,146.89 L75,139.27 L84.21,144.24 L94.08,146.95 L101.32,147.49 L107.24,147.01 L117.76,144.27 L127.63,139.08 L135.79,132.24 L142.9,123.03 L146.95,114.47 L149.48,102.63 L148.84,90.79 L145.02,78.95 L138.97,69.08 L130.92,61.04 L125,57.04 L119.74,54.43 L108.55,51.16 L101.97,50.47 Z" />
+          </svg>
+          +7 924 234 02 77
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="casenav" id="cases">
+    <div class="in">
+      <div class="row">
+        <a href="Political_case_vibory2021.html">← <span class="ru">Предыдущий кейс</span><span class="en">Previous case</span></a>
+        <a href="index.html#cases" class="all"><span class="ru">Все кейсы</span><span class="en">All cases</span></a>
+        <a href="case_marafon.html"><span class="ru">Следующий кейс</span><span class="en">Next case</span> →</a>
+      </div>
+      <span class="eyebrow"><span class="ru">Смотрите также</span><span class="en">See also</span></span>
+      <h2><span class="ru">Другие кейсы</span><span class="en">Other cases</span></h2>
+      <div class="others">
+        <a class="ocard" href="case_marafon.html">
+          <div class="oimg"><img src="case_marafon_media/1.jpg" alt="" loading="lazy" decoding="async"></div>
+          <div class="obody">
+            <span class="otag"><span class="ru">Спортивный маркетинг</span><span class="en">Sports marketing</span></span>
+            <h4><span class="ru">Galaxy Marathon 2019</span><span class="en">Galaxy Marathon 2019</span></h4>
+            <p><span class="ru">Рекламная кампания марафона</span><span class="en">Advertising campaign for the marathon</span></p>
+          </div>
+        </a>
+        <a class="ocard" href="casino_case.html">
+          <div class="oimg"><img src="casino_case_media/2nopoints.png" alt="" loading="lazy" decoding="async"></div>
+          <div class="obody">
+            <span class="otag"><span class="ru">Медийная кампания</span><span class="en">Media campaign</span></span>
+            <h4><span class="ru">Продвижение казино Tigre de Cristal</span><span class="en">Promoting Tigre de Cristal Casino</span></h4>
+            <p><span class="ru">Продвижение и управление медийными рисками</span><span class="en">Promotion and media risk management</span></p>
+          </div>
+        </a>
+        <a class="ocard" href="Political_case_vibory2021.html">
+          <div class="oimg"><img src="political_case_media/political-case-hero-01-ballot.webp" alt="" loading="lazy" decoding="async"></div>
+          <div class="obody">
+            <span class="otag"><span class="ru">Политический маркетинг</span><span class="en">Political marketing</span></span>
+            <h4><span class="ru">Продвижение кандидата</span><span class="en">Promoting a candidate</span></h4>
+            <p><span class="ru">Медийная работа в избирательной кампании</span><span class="en">Media work for an election campaign</span></p>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap">
+      <span class="copy">© <span class="ru">Михаил Труфанов · маркетолог и PR-директор.</span><span class="en">Mikhail
+          Trufanov · marketing &amp; PR director.</span> HOUSE MEDIA · YOKEEOPT</span>
+      <span class="mono">+7 924 234 02 77 · m.trufanov@hmedia.pro</span>
+    </div>
+  </footer>
+
+  <script>
+    var html = document.documentElement;
+    document.querySelectorAll('[data-set-lang]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        var l = b.getAttribute('data-set-lang');
+        html.setAttribute('data-lang', l); html.setAttribute('lang', l);
+        document.title = l === 'en' ? 'FEMTC case study · Mikhail Trufanov' : 'Кейс ДВМТЦ · Михаил Труфанов';
+        document.querySelectorAll('[data-set-lang]').forEach(function (x) { x.classList.toggle('active', x === b) });
+      });
+    });
+  </script>
+
+<script id="mobile-layout-js">
+    (function () {
+      var header = document.querySelector('header');
+      var burger = header && header.querySelector('.burger');
+      var menu = header && header.querySelector('.menu');
+      function setOpen(open) {
+        header.classList.toggle('menu-open', open);
+        burger.setAttribute('aria-expanded', String(open));
+      }
+      if (burger && menu) {
+        burger.addEventListener('click', function () { setOpen(!header.classList.contains('menu-open')); });
+        menu.querySelectorAll('a').forEach(function (a) { a.addEventListener('click', function () { setOpen(false); }); });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setOpen(false); });
+        document.addEventListener('click', function (e) { if (!header.contains(e.target)) setOpen(false); });
+        window.addEventListener('resize', function () { if (window.innerWidth > 900) setOpen(false); });
+      }
+      var brand = header && header.querySelector('.brand');
+      if (brand && brand.getAttribute('href') === '#top') {
+        brand.addEventListener('click', function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+      }
+    })();
+  </script>
+</body>
+</html>
