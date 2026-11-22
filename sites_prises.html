@@ -3,6 +3,42 @@
 
 <head>
   <meta charset="utf-8">
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const preferenceKey = 'site-lang';
+
+      function applyLanguage(language) {
+        if (root.lang !== language) {
+          root.dataset.lang = language;
+          root.lang = language;
+        }
+        for (const button of document.querySelectorAll('[data-set-lang]')) {
+          const active = button.dataset.setLang === language;
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-pressed', String(active));
+        }
+      }
+
+      function restoreLanguage() {
+        let saved;
+        try { saved = localStorage.getItem(preferenceKey); } catch {}
+        applyLanguage(saved === 'en' || saved === 'ru' ? saved : root.lang);
+      }
+
+      restoreLanguage();
+      document.addEventListener('DOMContentLoaded', restoreLanguage);
+      window.addEventListener('pageshow', restoreLanguage);
+
+      document.addEventListener('click', event => {
+        const button = event.target.closest('button[data-set-lang]');
+        if (!button) return;
+        const language = button.dataset.setLang;
+        try { localStorage.setItem(preferenceKey, language); } catch {}
+        applyLanguage(language);
+      });
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Разработка сайтов — цены и условия · Михаил Труфанов</title>
   <meta name="description"
@@ -2088,6 +2124,11 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="forms/contact.css">
+  <script src="forms/captcha.js" defer></script>
+  <script src="forms/contact.js" defer></script>
+  <link rel="stylesheet" href="legal/documents.css">
+  <script src="legal/documents.js" defer></script>
 </head>
 
 <body id="top"><a class="skip" href="#main"><span class="ru">К содержанию</span><span class="en">Skip to
@@ -2616,11 +2657,11 @@
             agreed before work starts.</span></p>
       </section>
 
-      <a class="portfolio-link" href="sites_portfolio.html"><span class="portfolio-top"><span class="mono"><span
+      <a class="portfolio-link" href="my-work.html"><span class="portfolio-top"><span class="mono"><span
               class="ru">СНАЧАЛА ПОСМОТРЕТЬ РАБОТЫ</span><span class="en">SEE THE WORK FIRST</span></span><span
             class="portfolio-mini" aria-hidden="true"><i></i><i></i><i></i></span></span><span
           class="portfolio-middle"><span class="portfolio-title"><span class="ru">ПОРТФОЛИО</span><span
-              class="en">PORTFOLIO</span></span><span class="portfolio-arrow" aria-hidden="true">↗</span></span><span
+              class="en">MY WORK</span></span><span class="portfolio-arrow" aria-hidden="true">↗</span></span><span
           class="portfolio-bottom"><span class="ru">Сайты, в которых задачи бизнеса становятся решениями.</span><span
             class="en">Websites built around real business needs.</span><span><span class="ru">Перейти к
               работам</span><span class="en">Explore the work</span> <span aria-hidden="true">→</span></span></span></a>
@@ -2757,7 +2798,8 @@
               ↗</a><a href="https://max.ru/u/f9LHodD0cOIjYq-bW_DKjBgMsAPnSGMA6B4l_44J5GDy4AVkhQdPqwYwMp8"
               target="_blank" rel="noopener">MAX ↗</a></div>
         </div>
-        <form class="enquiry" id="enquiry">
+        <form class="enquiry" id="enquiry" method="post" action="forms/send.php" data-contact-form>
+          <input type="hidden" name="source" value="prices">
           <h3><span class="ru">Начнём с вашей задачи</span><span class="en">Let’s start with your goals</span></h3>
           <label for="package"><span class="ru">Какой сайт интересует</span><span class="en">Website
               type</span></label><select id="package" name="package">
@@ -2771,26 +2813,42 @@
             <option value="bitrix" data-ru="Интернет-магазин · 1С-Битрикс — 339 000 ₽"
               data-en="Online store · 1C-Bitrix — 339 000 ₽">Интернет-магазин · 1С-Битрикс — 339 000 ₽</option>
           </select><label for="name"><span class="ru">Ваше имя</span><span class="en">Your name</span></label><input
-            id="name" name="name" type="text" autocomplete="name" maxlength="100" placeholder="Как к вам обращаться"
-            data-placeholder-ru="Как к вам обращаться" data-placeholder-en="What should I call you?"><label
-            for="task"><span class="ru">О бизнесе и задаче</span><span class="en">Your business and
-              goals</span></label><textarea id="task" name="task" rows="4" maxlength="4000"
+            id="name" name="name" type="text" autocomplete="name" maxlength="100" required placeholder="Как к вам обращаться"
+            data-placeholder-ru="Как к вам обращаться" data-placeholder-en="What should I call you?">
+          <label for="enquiry-contact"><span class="ru">Телефон или e-mail</span><span class="en">Phone or email</span></label>
+          <input id="enquiry-contact" name="contact" type="text" maxlength="254" required>
+          <label
+            for="task"><span class="ru">О бизнесе и задаче (необязательно)</span><span class="en">Your business and
+              goals (optional)</span></label><textarea id="task" name="message" rows="4" maxlength="4000"
             placeholder="Что предлагаете, кому и что должен делать сайт?"
             data-placeholder-ru="Что предлагаете, кому и что должен делать сайт?"
-            data-placeholder-en="What do you offer, who is it for, and what should the website do?"></textarea><button
-            class="btn btn-fill" type="submit"><span class="ru">Подготовить письмо</span><span class="en">Prepare an
-              email</span> <span aria-hidden="true">↗</span></button><button class="copy-button" id="copy"
+            data-placeholder-en="What do you offer, who is it for, and what should the website do?"></textarea>
+          <fieldset class="contact-consents">
+            <legend><span class="ru">Согласие и политика</span><span class="en">Consent and privacy</span></legend>
+            <label><input type="checkbox" name="agree-personal-data" value="1" required>
+              <span class="ru">Даю <a class="legal-document-link" href="#legal-consent" aria-haspopup="dialog">согласие на обработку персональных данных</a>.</span>
+              <span class="en">I give my <a class="legal-document-link" href="#legal-consent" aria-haspopup="dialog">consent to the processing of personal data</a>.</span>
+            </label>
+            <label><input type="checkbox" name="agree-privacy-policy" value="1" required>
+              <span class="ru">Подтверждаю, что ознакомился с <a class="legal-document-link" href="#legal-policy" aria-haspopup="dialog">положением об обработке персональных данных</a>.</span>
+              <span class="en">I confirm that I have read the <a class="legal-document-link" href="#legal-policy" aria-haspopup="dialog">Personal Data Processing Regulations</a>.</span>
+            </label>
+          </fieldset>
+          <div data-contact-captcha>
+            <div data-captcha-widget></div>
+            <p data-captcha-status role="status" aria-live="polite"></p>
+            <button type="button" data-captcha-retry hidden>
+              <span class="ru">Загрузить проверку ещё раз</span><span class="en">Reload verification</span>
+            </button>
+          </div>
+          <p role="status" aria-live="polite" data-contact-status></p>
+          <button class="btn btn-fill" type="submit"><span class="ru">Отправить заявку</span><span class="en">Send enquiry</span> <span aria-hidden="true">↗</span></button><button class="copy-button" id="copy"
             type="button"><span class="ru">Скопировать запрос для мессенджера</span><span class="en">Copy enquiry for a
               messenger</span></button>
-          <p class="form-note"><span class="ru">Откроется ваша почта с готовым черновиком. Проверьте письмо и отправьте
-              его самостоятельно.</span><span class="en">Your email app will open with a draft. Review it and send it
-              yourself.</span></p>
           <p class="form-status" id="form-status" role="status" aria-live="polite"></p><textarea id="copy-fallback"
             class="copy-fallback" rows="6" readonly hidden
-            aria-label="Текст запроса / Enquiry text"></textarea><noscript>
-            <p><span class="ru">Для подготовки черновика включите JavaScript или напишите по контактам
-                рядом.</span><span class="en">Enable JavaScript to prepare a draft, or use the contact links.</span></p>
-          </noscript>
+            aria-label="Текст запроса / Enquiry text"></textarea><noscript><p><span class="ru">Для отправки включите JavaScript или напишите по контактам рядом.</span>
+            <span class="en">Enable JavaScript to send your enquiry, or use the contact links.</span></p></noscript>
         </form>
       </div>
     </section>
@@ -2801,6 +2859,13 @@
           Trufanov · marketing &amp; PR director.</span> HOUSE MEDIA · YOKEEOPT</span>
       <span class="mono">+7 924 234 02 77 · m.trufanov@hmedia.pro</span>
     </div>
+    <div class="wrap legal-footer">
+      <div class="legal-footer-links">
+        <a class="legal-document-link" href="#legal-consent" aria-haspopup="dialog"><span class="ru">Согласие на обработку персональных данных</span><span class="en">Consent to the Processing of Personal Data</span></a>
+        <a class="legal-document-link" href="#legal-policy" aria-haspopup="dialog"><span class="ru">Положение об обработке персональных данных</span><span class="en">Personal Data Processing Regulations</span></a>
+        <a class="legal-document-link" href="#legal-cookies" aria-haspopup="dialog"><span class="ru">Файлы cookie</span><span class="en">Cookies</span></a>
+      </div>
+    </div>
   </footer>
   <script>(() => {
       'use strict';
@@ -2809,25 +2874,18 @@
       const status = document.getElementById('form-status');
       const fallback = document.getElementById('copy-fallback');
       const tr = (ru, en) => root.lang === 'en' ? en : ru;
-      document.querySelectorAll('[data-set-lang]').forEach(button => {
-        button.setAttribute('aria-pressed', String(button.dataset.setLang === root.lang));
-        button.addEventListener('click', () => {
-          const lang = button.dataset.setLang;
-          root.lang = lang;
-          root.dataset.lang = lang;
-          document.title = tr('Разработка сайтов — цены и условия · Михаил Труфанов', 'Website development — pricing & terms · Mikhail Trufanov');
-          document.querySelectorAll('[data-set-lang]').forEach(item => {
-            item.classList.toggle('active', item === button);
-            item.setAttribute('aria-pressed', String(item === button));
-          });
-          select.querySelectorAll('option').forEach(option => { option.textContent = option.dataset[lang]; });
-          document.querySelectorAll('[data-placeholder-ru]').forEach(field => {
-            field.placeholder = field.getAttribute('data-placeholder-' + lang);
-          });
-          status.textContent = '';
-          fallback.hidden = true;
+      function updateLanguageContent() {
+        const lang = root.lang;
+        document.title = tr('Разработка сайтов — цены и условия · Михаил Труфанов', 'Website development — pricing & terms · Mikhail Trufanov');
+        select.querySelectorAll('option').forEach(option => { option.textContent = option.dataset[lang]; });
+        document.querySelectorAll('[data-placeholder-ru]').forEach(field => {
+          field.placeholder = field.getAttribute('data-placeholder-' + lang);
         });
-      });
+        status.textContent = '';
+        fallback.hidden = true;
+      }
+      new MutationObserver(updateLanguageContent).observe(root, { attributeFilter: ['lang'] });
+      updateLanguageContent();
       document.querySelectorAll('.choose').forEach(link => {
         link.addEventListener('click', () => {
           select.value = link.dataset.package;
@@ -2836,15 +2894,10 @@
       });
       function draft() {
         const name = document.getElementById('name').value.trim();
+        const contact = document.getElementById('enquiry-contact').value.trim();
         const task = document.getElementById('task').value.trim();
-        return [tr('Здравствуйте, Михаил!', 'Hello Mikhail!'), name ? tr('Меня зовут ', 'My name is ') + name + '.' : '', tr('Интересует: ', 'Website type: ') + select.options[select.selectedIndex].textContent, task ? tr('Задача: ', 'My goals: ') + task : '', tr('Хочу уточнить условия, сроки и порядок оплаты разработки сайта.', 'I would like to discuss the scope, timeline and payment terms for a website.')].filter(Boolean).join('\n\n');
+        return [tr('Здравствуйте, Михаил!', 'Hello Mikhail!'), name ? tr('Меня зовут ', 'My name is ') + name + '.' : '', tr('Интересует: ', 'Website type: ') + select.options[select.selectedIndex].textContent, contact ? tr('Контакт: ', 'Contact: ') + contact : '', task ? tr('Задача: ', 'My goals: ') + task : '', tr('Хочу уточнить условия, сроки и порядок оплаты разработки сайта.', 'I would like to discuss the scope, timeline and payment terms for a website.')].filter(Boolean).join('\n\n');
       }
-      document.getElementById('enquiry').addEventListener('submit', event => {
-        event.preventDefault();
-        const subject = tr('Запрос на разработку сайта', 'Website development enquiry');
-        window.location.href = 'mailto:m.trufanov@hmedia.pro?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(draft());
-        status.textContent = tr('Черновик подготовлен. Если почта не открылась, скопируйте запрос и отправьте в Telegram или другой мессенджер.', 'Your draft is ready. If your email app did not open, copy the enquiry and send it through Telegram or another messenger.');
-      });
       document.getElementById('copy').addEventListener('click', async () => {
         const text = draft();
         try {

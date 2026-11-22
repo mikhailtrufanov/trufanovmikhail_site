@@ -3,6 +3,42 @@
 
 <head>
   <meta charset="utf-8">
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const preferenceKey = 'site-lang';
+
+      function applyLanguage(language) {
+        if (root.lang !== language) {
+          root.dataset.lang = language;
+          root.lang = language;
+        }
+        for (const button of document.querySelectorAll('[data-set-lang]')) {
+          const active = button.dataset.setLang === language;
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-pressed', String(active));
+        }
+      }
+
+      function restoreLanguage() {
+        let saved;
+        try { saved = localStorage.getItem(preferenceKey); } catch {}
+        applyLanguage(saved === 'en' || saved === 'ru' ? saved : root.lang);
+      }
+
+      restoreLanguage();
+      document.addEventListener('DOMContentLoaded', restoreLanguage);
+      window.addEventListener('pageshow', restoreLanguage);
+
+      document.addEventListener('click', event => {
+        const button = event.target.closest('button[data-set-lang]');
+        if (!button) return;
+        const language = button.dataset.setLang;
+        try { localStorage.setItem(preferenceKey, language); } catch {}
+        applyLanguage(language);
+      });
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Кейс Tigre de Cristal &mdash; продвижение казино · Михаил Труфанов</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1248,6 +1284,8 @@ header .nav,header.header .wrap{gap:16px}
       }
     }
   </style>
+  <link rel="stylesheet" href="legal/documents.css">
+  <script src="legal/documents.js" defer></script>
 </head>
 
 <body id="top">
@@ -1935,18 +1973,15 @@ header .nav,header.header .wrap{gap:16px}
           Trufanov · marketing &amp; PR director.</span> HOUSE MEDIA · YOKEEOPT</span>
       <span class="mono">+7 924 234 02 77 · m.trufanov@hmedia.pro</span>
     </div>
+    <div class="wrap legal-footer">
+      <div class="legal-footer-links">
+        <a class="legal-document-link" href="#legal-consent" aria-haspopup="dialog"><span class="ru">Согласие на обработку персональных данных</span><span class="en">Consent to the Processing of Personal Data</span></a>
+        <a class="legal-document-link" href="#legal-policy" aria-haspopup="dialog"><span class="ru">Положение об обработке персональных данных</span><span class="en">Personal Data Processing Regulations</span></a>
+        <a class="legal-document-link" href="#legal-cookies" aria-haspopup="dialog"><span class="ru">Файлы cookie</span><span class="en">Cookies</span></a>
+      </div>
+    </div>
   </footer>
 
-  <script>
-    var html = document.documentElement;
-    document.querySelectorAll('[data-set-lang]').forEach(function (b) {
-      b.addEventListener('click', function () {
-        var l = b.getAttribute('data-set-lang');
-        html.setAttribute('data-lang', l); html.setAttribute('lang', l);
-        document.querySelectorAll('[data-set-lang]').forEach(function (x) { x.classList.toggle('active', x === b) });
-      });
-    });
-  </script>
 <script id="mobile-layout-js">
     (function () {
       var header = document.querySelector('header');

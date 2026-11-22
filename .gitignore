@@ -1,3 +1,6 @@
 
 trufanov_site-2.zip
 .deploy/
+
+# Local-only mail handler and dependencies
+/forms/

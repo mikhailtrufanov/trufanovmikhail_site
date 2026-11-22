@@ -3,6 +3,42 @@
 
 <head>
   <meta charset="UTF-8">
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const preferenceKey = 'site-lang';
+
+      function applyLanguage(language) {
+        if (root.lang !== language) {
+          root.dataset.lang = language;
+          root.lang = language;
+        }
+        for (const button of document.querySelectorAll('[data-set-lang]')) {
+          const active = button.dataset.setLang === language;
+          button.classList.toggle('active', active);
+          button.setAttribute('aria-pressed', String(active));
+        }
+      }
+
+      function restoreLanguage() {
+        let saved;
+        try { saved = localStorage.getItem(preferenceKey); } catch {}
+        applyLanguage(saved === 'en' || saved === 'ru' ? saved : root.lang);
+      }
+
+      restoreLanguage();
+      document.addEventListener('DOMContentLoaded', restoreLanguage);
+      window.addEventListener('pageshow', restoreLanguage);
+
+      document.addEventListener('click', event => {
+        const button = event.target.closest('button[data-set-lang]');
+        if (!button) return;
+        const language = button.dataset.setLang;
+        try { localStorage.setItem(preferenceKey, language); } catch {}
+        applyLanguage(language);
+      });
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Михаил Труфанов — маркетолог и PR-директор, основатель HOUSE MEDIA</title>
   <meta name="description"
@@ -532,6 +568,69 @@
       gap: 16px
     }
 
+    .case-portfolio-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      min-height: 56px;
+      margin-top: 16px;
+      padding: 10px clamp(12px, 2vw, 26px);
+      border-radius: 12px;
+      background: var(--amber);
+      color: #17140f;
+      font-family: "Montserrat", -apple-system, Segoe UI, Roboto, sans-serif;
+      transition: background .25s
+    }
+
+    .case-portfolio-link:hover {
+      background: #f1b557
+    }
+
+    .case-portfolio-link:focus-visible {
+      outline: 2px solid var(--fg);
+      outline-offset: 4px
+    }
+
+    .case-portfolio-title {
+      flex-shrink: 0;
+      font-family: "Oswald", -apple-system, Segoe UI, Roboto, sans-serif;
+      font-size: clamp(16px, calc(11px + 2vw), 34px);
+      font-weight: 500;
+      letter-spacing: -.015em;
+      line-height: 1.2;
+      white-space: nowrap
+    }
+
+    @media (max-width: 310px) {
+      .case-portfolio-title {
+        flex-shrink: 1;
+        min-width: 0;
+        white-space: normal
+      }
+    }
+
+    .case-portfolio-action {
+      display: flex;
+      align-items: center;
+      gap: clamp(6px, 1.4vw, 16px);
+      min-width: 0;
+      font-size: clamp(11px, 1.2vw, 13px);
+      font-weight: 600;
+      line-height: 1.2;
+      text-align: right
+    }
+
+    .case-portfolio-arrow {
+      flex: none;
+      font: 400 clamp(20px, 3vw, 28px)/1 Arial, sans-serif;
+      transition: transform .25s
+    }
+
+    .case-portfolio-link:hover .case-portfolio-arrow {
+      transform: translate(2px, -2px)
+    }
+
     .case {
       background: var(--panel);
       border-radius: 12px;
@@ -600,7 +699,7 @@
       position: relative;
       overflow: hidden;
       background: #0f1113;
-      padding: 44px 0
+      padding: 0 0 44px
     }
 
     .xb-wrap {
@@ -1138,6 +1237,11 @@
       }
     }
   </style>
+  <link rel="stylesheet" href="forms/contact.css">
+  <script src="forms/captcha.js" defer></script>
+  <script src="forms/contact.js" defer></script>
+  <link rel="stylesheet" href="legal/documents.css">
+  <script src="legal/documents.js" defer></script>
 </head>
 
 <body>
@@ -1385,7 +1489,7 @@
               <div class="ctext"><span class="ru">Pioneer Logistic: сайт и цифровая платформа с личным кабинетом и
                   интеграцией в 1С.</span><span class="en">Pioneer Logistic: website and a digital platform with a
                   client portal and 1C integration.</span></div>
-              <a class="more" href="#"><span class="ru">Подробнее →</span><span class="en">Read more →</span></a>
+              <a class="more" href="pioneer_logistic_case.html"><span class="ru">Подробнее →</span><span class="en">Read more →</span></a>
             </div>
           </article>
           <article class="case">
@@ -1423,6 +1527,10 @@
             </div>
           </article>
         </div>
+        <a class="case-portfolio-link" href="my-work.html">
+          <span class="case-portfolio-title"><span class="ru">САЙТ-ПОРТФОЛИО</span><span class="en">MY WORK</span></span>
+          <span class="case-portfolio-action"><span class="ru">посмотреть работы</span><span class="case-portfolio-arrow" aria-hidden="true">↗</span></span>
+        </a>
       </div>
     </section>
 
@@ -1527,22 +1635,43 @@
                 alt="MAX"></a>
           </div>
         </div>
-        <form class="form" action="#" method="post" onsubmit="return false">
+        <form class="form" method="post" action="forms/send.php" data-contact-form>
           <h3><span class="ru">Форма обратной связи</span><span class="en">Contact form</span></h3>
-          <div class="field"><label class="fl"><span class="ru">Имя</span><span class="en">Name</span></label><input
-              type="text" name="name" placeholder="Михаил"></div>
-          <div class="field"><label class="fl"><span class="ru">Телефон или e-mail</span><span class="en">Phone or
-                e-mail</span></label><input type="text" name="contact" placeholder="+7 ··· / mail@example.com"></div>
-          <div class="field"><label class="fl"><span class="ru">Пара слов о задаче</span><span class="en">A few words
-                about the task</span></label><textarea name="message" placeholder="..."></textarea></div>
-          <label class="check"><input type="checkbox" name="privacy" required><span class="ru">Я согласен с <a href="#"
-                target="_blank">политикой конфиденциальности</a> и обработкой персональных данных.</span><span
-              class="en">I agree to the <a href="#" target="_blank">privacy policy</a> and processing of personal
-              data.</span></label>
-          <button class="btn btn-fill" type="submit"><span class="ru">Отправить</span><span
-              class="en">Send</span></button>
-          <div class="note"><span class="ru">Форма-заглушка: подключить обработчик/почту при публикации.</span><span
-              class="en">Placeholder form: connect a handler/email on launch.</span></div>
+          <input type="hidden" name="source" value="home">
+          <div class="field">
+            <label class="fl" for="home-name"><span class="ru">Имя</span><span class="en">Name</span></label>
+            <input id="home-name" type="text" name="name" autocomplete="name" maxlength="100" required>
+          </div>
+          <div class="field">
+            <label class="fl" for="home-contact"><span class="ru">Телефон или e-mail</span><span class="en">Phone or email</span></label>
+            <input id="home-contact" type="text" name="contact" maxlength="254" required>
+          </div>
+          <div class="field">
+            <label class="fl" for="home-message"><span class="ru">Пара слов о задаче (необязательно)</span><span class="en">A few words about the task (optional)</span></label>
+            <textarea id="home-message" name="message" maxlength="4000"></textarea>
+          </div>
+          <fieldset class="contact-consents">
+            <legend><span class="ru">Согласие и политика</span><span class="en">Consent and privacy</span></legend>
+            <label><input type="checkbox" name="agree-personal-data" value="1" required>
+              <span class="ru">Даю <a class="legal-document-link" href="#legal-consent" aria-haspopup="dialog">согласие на обработку персональных данных</a>.</span>
+              <span class="en">I give my <a class="legal-document-link" href="#legal-consent" aria-haspopup="dialog">consent to the processing of personal data</a>.</span>
+            </label>
+            <label><input type="checkbox" name="agree-privacy-policy" value="1" required>
+              <span class="ru">Подтверждаю, что ознакомился с <a class="legal-document-link" href="#legal-policy" aria-haspopup="dialog">положением об обработке персональных данных</a>.</span>
+              <span class="en">I confirm that I have read the <a class="legal-document-link" href="#legal-policy" aria-haspopup="dialog">Personal Data Processing Regulations</a>.</span>
+            </label>
+          </fieldset>
+          <div data-contact-captcha>
+            <div data-captcha-widget></div>
+            <p data-captcha-status role="status" aria-live="polite"></p>
+            <button type="button" data-captcha-retry hidden>
+              <span class="ru">Загрузить проверку ещё раз</span><span class="en">Reload verification</span>
+            </button>
+          </div>
+          <p role="status" aria-live="polite" data-contact-status></p>
+          <button class="btn btn-fill" type="submit"><span class="ru">Отправить заявку</span><span class="en">Send enquiry</span></button>
+          <noscript><p><span class="ru">Для отправки включите JavaScript или напишите по контактам рядом.</span>
+            <span class="en">Enable JavaScript to send your enquiry, or use the contact links.</span></p></noscript>
         </form>
       </div>
     </section>
@@ -1551,18 +1680,15 @@
   <footer>
     <div class="wrap">© <span class="ru">Михаил Труфанов · маркетолог и PR-директор.</span><span class="en">Mikhail
         Trufanov · marketing &amp; PR director.</span> HOUSE MEDIA · YOKEEOPT</div>
+    <div class="wrap legal-footer">
+      <div class="legal-footer-links">
+        <a class="legal-document-link" href="#legal-consent" aria-haspopup="dialog"><span class="ru">Согласие на обработку персональных данных</span><span class="en">Consent to the Processing of Personal Data</span></a>
+        <a class="legal-document-link" href="#legal-policy" aria-haspopup="dialog"><span class="ru">Положение об обработке персональных данных</span><span class="en">Personal Data Processing Regulations</span></a>
+        <a class="legal-document-link" href="#legal-cookies" aria-haspopup="dialog"><span class="ru">Файлы cookie</span><span class="en">Cookies</span></a>
+      </div>
+    </div>
   </footer>
 
-  <script>
-    var html = document.documentElement;
-    document.querySelectorAll('[data-set-lang]').forEach(function (b) {
-      b.addEventListener('click', function () {
-        var l = b.getAttribute('data-set-lang');
-        html.setAttribute('data-lang', l); html.setAttribute('lang', l);
-        document.querySelectorAll('[data-set-lang]').forEach(function (x) { x.classList.toggle('active', x === b) });
-      });
-    });
-  </script>
 <script id="mobile-layout-js">
     (function () {
       var header = document.querySelector('header');
