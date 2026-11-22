@@ -1,6 +1,7 @@
-"""Deploy root HTML pages and the local media they reference to Timeweb."""
+"""Deploy the public site pages and their assets to Timeweb."""
 
 import argparse
+import json
 import os
 import posixpath
 import re
@@ -19,9 +20,14 @@ PAGES = (
     "case.html",
     "case_marafon.html",
     "casino_case.html",
+    "MGU.html",
+    "my-work.html",
+    "pioneer_logistic_case.html",
     "sites_prises.html",
     "index.html",
 )
+PUBLIC_ASSETS = ("legal/documents.css", "legal/documents.js")
+WORKS_DATA = re.compile(r'<script\b[^>]*\bid=["\x27]works-data["\x27][^>]*>(.*?)</script>', re.S)
 CSS_URL = re.compile(r"url\(\s*(['\"]?)(.*?)\1\s*\)", re.IGNORECASE)
 
 
@@ -58,22 +64,35 @@ def local_media(url, page):
     normalized = posixpath.normpath(path)
     if normalized in {"", ".", ".."} or normalized.startswith("../"):
         raise ValueError(f"Media path outside site: {page}: {url}")
+    if normalized.startswith("forms/"):
+        raise ValueError(f"Forms assets are deployed separately: {page}: {url}")
     return normalized
+
+
+def portfolio_images(content):
+    match = WORKS_DATA.search(content)
+    if not match:
+        raise ValueError("Missing works-data in my-work.html")
+    for work in json.loads(match.group(1)):
+        yield from work["images"]
+        if work.get("cover"):
+            yield work["cover"]
 
 
 def site_files():
     tracked = set(subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).decode().rstrip("\0").split("\0"))
-    pages = PAGES
-    for page in pages:
-        if page not in tracked or not (ROOT / page).is_file():
-            raise ValueError(f"Missing or untracked page: {page}")
+    for path in (*PAGES, *PUBLIC_ASSETS):
+        if path not in tracked or not (ROOT / path).is_file():
+            raise ValueError(f"Missing or untracked site file: {path}")
 
     media = set()
-    for page in pages:
+    for page in PAGES:
         content = (ROOT / page).read_text(encoding="utf-8")
         parser = MediaReferences()
         parser.feed(content)
         urls = parser.urls + [match.group(2) for match in CSS_URL.finditer(content)]
+        if page == "my-work.html":
+            urls.extend(portfolio_images(content))
         for url in urls:
             path = local_media(url, Path(page))
             if path:
@@ -81,7 +100,7 @@ def site_files():
                     raise ValueError(f"Missing or untracked media: {page} -> {path}")
                 media.add(path)
 
-    return sorted(media) + sorted(page for page in pages if page != "index.html") + ["index.html"]
+    return sorted(media | set(PUBLIC_ASSETS)) + sorted(page for page in PAGES if page != "index.html") + ["index.html"]
 
 
 def stage(files):

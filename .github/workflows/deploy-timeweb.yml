@@ -20,7 +20,7 @@ jobs:
       - name: Check out site
         uses: actions/checkout@v5
 
-      - name: Prepare HTML and linked media
+      - name: Prepare public site files
         run: python3 .github/scripts/deploy_timeweb.py --stage
 
       - name: Check destination folder
@@ -39,3 +39,9 @@ jobs:
           local-dir: ./.deploy/
           server-dir: /
           dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            forms/
+            forms/**
